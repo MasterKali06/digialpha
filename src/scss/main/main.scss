@@ -1,0 +1,75 @@
+@import "./mixins.scss";
+@import "../colors.scss";
+@import "../media-query.scss";
+
+
+.menu-body {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assets/images/main_bg.jpg");
+  background-size: contain;
+
+  @include responsive(tab-port){
+    overflow: scroll;     
+  }
+}
+
+.pause-overlay{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+
+.menu-one {
+  @include menuTable();
+}
+
+// .menu-two {
+//   @include menuTable();
+// }
+
+.csgo {
+  @include menuItem(1);
+  background-color: var(--csgo-main);
+}
+
+.dota {
+  @include menuItem(2);
+  background-color: var(--dota-main);
+}
+
+.lol {
+  @include menuItem(3);
+  background-color: var(--lol-main);
+}
+
+.valorant {
+  @include menuItem(4);
+  background-color: var(--valorant-main);
+}
+
+.ow {
+  @include menuItem(1);
+  background-color: var(--ow-main);
+}
+
+.rsiege {
+  @include menuItem(2);
+  background-color: var(--rsiege-main);
+}
+
+.codmw {
+  @include menuItem(3);
+  background-color: var(--codmw-main);
+}
+
+.fifa {
+  @include menuItem(4);
+  background-color: var(--fifa-main);
+}

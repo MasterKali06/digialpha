@@ -1,0 +1,35 @@
+
+
+.navbar{
+    overflow:auto;
+    max-width: 80px;
+    height: 100vh;
+    background: var(--first-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:center;
+
+    z-index: 100;
+}
+
+.navbar-box{
+    flex: 0.4;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.page-item{
+    width: 24px;
+    height: 24px;
+}
+
+.image-holder{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}

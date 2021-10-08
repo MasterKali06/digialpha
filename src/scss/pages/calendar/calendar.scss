@@ -1,0 +1,41 @@
+@import './mixins.scss';
+@import "../../colors.scss";
+
+.calendar-body{
+    background: var(--main-dark);
+    width: 100%;
+    height: 100vh;
+}
+
+.live-container{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.live-slideshow{
+    height: 100%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prev-arrow {
+    position: absolute;
+    left: 80px;
+    z-index: 100;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+  
+.next-arrow {
+    position: absolute;
+    right: 20px;
+    z-index: 100;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+

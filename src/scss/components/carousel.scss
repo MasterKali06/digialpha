@@ -1,0 +1,101 @@
+@import "../media-query.scss";
+
+.live-card{
+    position: absolute;
+    width: 50%;
+    height: 40%;
+    z-index: 10;
+    display: flex;
+    box-shadow: 0 0 10px var(--main-dark);
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+    @include responsive(desktop){
+        flex-direction: column-reverse;
+    }
+}
+
+.live-card:hover{
+    transform: scale(1.03);
+}
+
+.left{
+    transform: translateX(-20%) scale(0.8);
+    z-index: 5;
+    opacity: 0.8;
+}
+
+.left:hover{
+    transform: scale(0.85) translateX(-20%);
+    opacity: 0.9;
+}
+
+.right{
+    transform: translateX(20%) scale(0.8);
+    z-index: 5;
+    opacity: 0.8;
+}
+
+.right:hover{
+    transform: scale(0.85) translateX(20%);
+    opacity: 0.9;
+}
+
+.live-details{
+    flex: 0.3;
+    border-radius: 10px;
+    background-image: linear-gradient(
+        45deg,
+        var(--aura-purple),
+        var(--frost-blue-light)
+    );
+    display: flex;
+    flex-direction: column;
+
+    @include responsive(desktop){
+        flex: 0.35;
+    }
+}
+
+.tournament-detail{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+}
+
+.small-logo{
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.live-tournament-title{
+    font-size: 1rem;
+    color: var(--main-light);
+    padding: 5px;
+}
+
+.live-tournament-name{
+    font-size: 0.9rem;
+    color: var(--second-dark);
+    padding: 5px;
+}
+
+.live-team{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.live-video{
+    flex: 0.7;
+    background-color: var(--second-dark);
+    border-radius: 10px;
+
+    @include responsive(desktop){
+        flex: 0.65;
+    }
+}
+
+
