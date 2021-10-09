@@ -98,14 +98,26 @@ const Carousel = forwardRef((props, ref) => {
                                 <div className="live-tournament-title">{current.serie.leagueName}</div>
                             </div>
 
-                            <div className="live-team">
-                                <img className="small-logo" src={team1Img} alt={team1} />
-                                <div className="team-title">{team1}</div>
+                            <div className="live-teams-section">
+                                <div className="live-team">
+                                    <img className="small-logo" src={team1Img} alt={team1} />
+                                    <div className="team-title">{team1}</div>
+                                </div>
+
+                                <div className="live-result">
+                                    {current.result.substring(0, 1)}
+                                </div>
                             </div>
 
-                            <div className="live-team">
-                                <img className="small-logo" src={team2Img} alt={team2} />
-                                <div className="team-title">{team2}</div>
+                            <div className="live-teams-section">
+                                <div className="live-team">
+                                    <img className="small-logo" src={team2Img} alt={team2} />
+                                    <div className="team-title">{team2}</div>
+                                </div>
+
+                                <div className="live-result">
+                                    {current.result.substring(2)}
+                                </div>
                             </div>
 
                             <div className="live-tournament-name">{current.name}</div>
