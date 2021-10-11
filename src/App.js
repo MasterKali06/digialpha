@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // pages
 import Main from "./pages/main";
-import Calendar from "./pages/calendar";
+import Calendar from "./pages/calendar/calendar";
 import Tournaments from "./pages/tournaments"
 import Teams from "./pages/teams"
 import News from "./pages/news"

@@ -1,0 +1,128 @@
+@import './mixins.scss';
+@import "../../colors.scss";
+@import "../../media-query.scss";
+
+.calendar-body{
+    background: var(--main-dark);
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.live-header{
+    position: absolute;
+    color: var(--main-light);
+    font-size: 1.6rem;
+    right: 0.6%;
+    top: 3%;
+    font-stretch: expanded;
+    transform: rotate(45deg);
+    transition: all 0.4s;
+    
+
+    @include responsive(desktop){
+        font-size: 1.2rem;
+    }
+
+    @include responsive(tab-port){
+        font-size: 0.9rem;
+    }
+}
+
+.header-transit{
+    transform: rotate(0deg);
+}
+
+
+.live-container{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.live-slideshow{
+    height: 100%;
+    width: 80%;
+    display: flex;
+    margin-top: 2%;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.slideshow-transit{
+    margin-top: 20%;
+}
+
+.prev-arrow {
+    position: absolute;
+    left: 100px;
+    z-index: 100;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+  
+.next-arrow {
+    position: absolute;
+    right: 20px;
+    z-index: 100;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.matches-body{
+    width: 98%;
+    height: 90%;
+    position: relative;
+    margin: 0 auto;
+    top: 48%;
+    z-index: 100;
+    transition: all 0.5s ;
+}
+
+
+
+.open-close-btn{
+    position: absolute;
+    left: calc(50% - 1.75rem);
+    width: 4rem;
+    height: 4rem;
+    top: -5%;
+    border-radius: 50%;
+    background-color: var(--first-dark);
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center;
+    font-size: 1.5rem;
+    box-shadow: 0 -4px 4px var(--second-dark);
+
+    @include responsive(tab-port){
+        width: 3rem;
+        height: 3rem;       
+    }
+}
+
+.up-icon{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 40%;
+
+    @include responsive(tab-port){
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+}
+
+.opened{
+    transition: all 0.8s cubic-bezier(0.175, 0.5, 0, 1.15);
+    top: -40%;
+}
+
+.rotate{
+    transform: rotate(180deg);
+}
+

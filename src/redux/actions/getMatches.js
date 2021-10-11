@@ -47,7 +47,7 @@ const getPastMatchesFail = error => ({
     payload: error
 })
 
-export const getMatches = (gameId, matchMode) => {
+export const getMatches = (gameId, matchMode, range = null) => (dispatch) => {
 
     let func = {}
     switch (matchMode) {
@@ -63,14 +63,14 @@ export const getMatches = (gameId, matchMode) => {
     }
 
 
-    return function (dispatch) {
-        dispatch(func.loading())
-        axios.get(`http://localhost:5000/matches?game=${gameId}&page=1&matchMode=${matchMode}`)
-            .then(
-                response => {
+    // return function (dispatch) {
+    dispatch(func.loading())
+    axios.get(`http://localhost:5000/matches?game=${gameId}&range=${range}&matchMode=${matchMode}`)
+        .then(
+            response => {
 
-                    dispatch(func.success(response.data))
-                })
-            .catch(err => dispatch(func.fail(err.message)))
-    }
+                dispatch(func.success(response.data))
+            })
+        .catch(err => dispatch(func.fail(err.message)))
 }
+

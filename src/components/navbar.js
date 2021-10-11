@@ -56,7 +56,9 @@ function Navbar() {
         boxShadow: [
             " 0 0 1px var(--second-dark)",
             "0 0 2px var( --second-dark)",
-            `0 0 4px ${gameShadowList[gameId]}`
+            "0 0 4px var( --second-dark)",
+            "0 0 6px var( --second-dark)",
+            // `0 0 7px ${gameShadowList[gameId]}`
         ]
     }
 

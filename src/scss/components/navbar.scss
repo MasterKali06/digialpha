@@ -1,3 +1,4 @@
+@import "../media-query.scss";
 
 
 .navbar{
@@ -25,6 +26,11 @@
 .page-item{
     width: 24px;
     height: 24px;
+
+    @include responsive(tab-port){
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .image-holder{
