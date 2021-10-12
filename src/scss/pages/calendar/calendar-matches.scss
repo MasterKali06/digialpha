@@ -11,8 +11,65 @@
     
 }
 
-.calendar{
+.date-picker-container{
     position: absolute;
-    right: 1%;
-    top: 1%;
+    left: calc(50%);
+}
+
+.Calendar{
+    background: var(--main-dark) !important;
+    background-color: var(--main-dark) !important;
+}
+
+
+.Calendar__monthText, .Calendar__yearText{
+    color: var(--main-light);
+}
+
+.Calendar__monthText:hover{
+    background:var(--frost-blue-light) !important;
+}
+
+.Calendar__monthText:focus{
+    background:var(--frost-blue-light) !important;
+}
+
+.Calendar__yearText:hover{
+    background:var(--frost-blue-light) !important;
+}
+
+.Calendar__yearText:focus{
+    background:var(--frost-blue-light) !important;
+}
+
+.Calendar__weekDays{
+    color: var(--dark-grey);
+}
+
+.Calendar__day{
+    color: var(--main-light) !important;
+}
+
+.Calendar__day:hover{
+    background:var(--frost-blue-light) !important;
+}
+
+.Calendar__monthSelector{
+    background-color: var(--main-dark) !important;
+}
+
+.Calendar__monthSelectorItemText{
+    color: var(--main-light) !important;
+}
+
+.Calendar__yearSelector{
+    background-color: var(--main-dark) !important;
+}
+
+.Calendar__yearSelectorWrapper::before{
+    background-image: linear-gradient(to top, var(--first-dark), var(--first-dark) 10%, rgba(245, 245, 245, 0)) !important;
+}
+
+.Calendar__yearSelectorWrapper::after{
+    background-image: linear-gradient(to bottom, var(--first-dark), var(--first-dark) 10%, rgba(245, 245, 245, 0)) !important;
 }
