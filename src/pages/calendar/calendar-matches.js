@@ -2,9 +2,9 @@ import "../../scss/pages/calendar/calendar-matches.scss"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState, connect } from "react"
 import { getMatches } from "../../redux/actions/getMatches";
-import { Calendar } from 'react-modern-calendar-datepicker';
+import DatePicker from 'react-modern-calendar-datepicker';
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import { colors } from "../../constants/constants";
+import { colors, gameColorList, gameShadowList } from "../../constants/constants";
 
 const CalendarMatches = () => {
 
@@ -14,8 +14,8 @@ const CalendarMatches = () => {
     let date = new Date()
     const today = {
         year: date.getFullYear(),
-        month: date.getMonth(),
-        day: date.getDay()
+        month: date.getMonth() + 1,
+        day: date.getDate()
     }
 
     let epoch = date.getTime()
@@ -30,12 +30,15 @@ const CalendarMatches = () => {
     }, [time, dispatch, gameId])
 
     const onTimeChange = (epoch) => {
-        console.log("new time set")
         setTime(epoch)
     }
 
     return (
-        <CalendarMatchesUi onTimeChange={(newEpoch) => onTimeChange(newEpoch)} epoch={today} />
+        <CalendarMatchesUi
+            onTimeChange={(newEpoch) => onTimeChange(newEpoch)}
+            today={today}
+            gameId={gameId}
+        />
     )
 }
 
@@ -46,17 +49,36 @@ const CalendarMatchesUi = (props) => {
 
     const [selectedDay, setSelectedDay] = useState(props.today)
 
+    const formatSelectedDay = () => {
+        var date = new Date(selectedDay["year"], selectedDay["month"] - 1, selectedDay["day"])
+        props.onTimeChange(date.getTime())
+        var newDate = date.toString().split(" ")
+        return `${newDate[1]} ${newDate[2]} ${newDate[3]}`
+    }
+
+    const renderInput = ({ ref }) => (
+        <input
+            readOnly
+            ref={ref}
+            placeholder="Pick a date"
+            value={formatSelectedDay()}
+            className="calendar-input" />
+    )
+
+
     return (
         <div className="matches-container">
             <div className="date-picker-container">
-                <Calendar
-                    colorPrimary={colors.auraGreen}
+                {/* TODO: change arrow */}
+                <DatePicker
+                    colorPrimary={gameColorList[props.gameId]}
                     value={selectedDay}
                     onChange={setSelectedDay}
+                    calendarTodayClassName="calendar-today"
+                    renderInput={renderInput}
                     shouldHighlightWeekends
                 />
             </div>
-
 
         </div>
     )

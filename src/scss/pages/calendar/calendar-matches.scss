@@ -12,8 +12,10 @@
 }
 
 .date-picker-container{
-    position: absolute;
-    left: calc(50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
 }
 
 .Calendar{
@@ -21,48 +23,28 @@
     background-color: var(--main-dark) !important;
 }
 
-
-.Calendar__monthText, .Calendar__yearText{
-    color: var(--main-light);
-}
-
-.Calendar__monthText:hover{
-    background:var(--frost-blue-light) !important;
-}
-
-.Calendar__monthText:focus{
-    background:var(--frost-blue-light) !important;
-}
-
-.Calendar__yearText:hover{
-    background:var(--frost-blue-light) !important;
-}
-
-.Calendar__yearText:focus{
-    background:var(--frost-blue-light) !important;
-}
-
-.Calendar__weekDays{
-    color: var(--dark-grey);
-}
-
-.Calendar__day{
+.Calendar__monthText,
+.Calendar__yearText,
+.Calendar__weekDays,
+.Calendar__day,
+.Calendar__monthSelectorItemText,
+.Calendar__yearSelectorText
+{
     color: var(--main-light) !important;
 }
 
-.Calendar__day:hover{
+.Calendar__monthText:focus,
+.Calendar__yearText:hover,
+.Calendar__yearText:focus,
+.Calendar__day:hover,
+.Calendar__monthText:hover,
+.Calendar__monthSelectorItemText:hover,
+.Calendar__yearSelectorText:hover
+{
     background:var(--frost-blue-light) !important;
 }
 
-.Calendar__monthSelector{
-    background-color: var(--main-dark) !important;
-}
-
-.Calendar__monthSelectorItemText{
-    color: var(--main-light) !important;
-}
-
-.Calendar__yearSelector{
+.Calendar__monthSelector, .Calendar__yearSelector{
     background-color: var(--main-dark) !important;
 }
 
@@ -72,4 +54,23 @@
 
 .Calendar__yearSelectorWrapper::after{
     background-image: linear-gradient(to bottom, var(--first-dark), var(--first-dark) 10%, rgba(245, 245, 245, 0)) !important;
+}
+
+.calendar-today{
+    color: var(--aura-red) !important;
+}
+
+.calendar-input{
+    border-radius: 10%;
+    text-align: center;
+    color: var(--second-light);
+    outline: none;
+    font-size: 1rem;
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--first-dark);
+    box-shadow: 
+        0 0 2px var(--main-light),
+        0 0 4px var(--first-light),
+        0 0 8px var(--second-light);
 }
