@@ -71,10 +71,10 @@ const CalendarLive = () => {
             <div className="live-container">
 
                 <PrevArrow onClick={() => { mRef.current.prevClicked() }} />
-                <div className={matchesMenuOpen ? "live-slideshow slideshow-transit" : "live-slideshow"}>
+                <div className="live-slideshow">
                     {
                         ongoing.matches.length > 0 ?
-                            <Carousel ref={mRef} cards={ongoing} />
+                            <Carousel ref={mRef} cards={ongoing} matchesOpen={matchesMenuOpen} />
 
                             // no live matches container goes here
                             : <></>

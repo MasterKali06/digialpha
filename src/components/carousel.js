@@ -1,5 +1,6 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { colors, gameColorList, gameLogoList, gameShadowList } from "../constants/constants";
+import { getMatchesModel } from "../helper/matchesHelper";
 import "../scss/components/carousel.scss"
 
 const Carousel = forwardRef((props, ref) => {
@@ -58,30 +59,10 @@ const Carousel = forwardRef((props, ref) => {
     return (
         <>
             {show.map((item, idx) => {
-                const className = `live-card ${item.position}`
-                const current = item.content
-
-                // todo maybe we dont have one of the teams
-                const team1 = current.opponents[0].name
-                const team2 = current.opponents[1].name
-
-                let team1Img = ""
-                let team2Img = ""
-                const img1Available = current.opponents[0].image.length > 0
-                const img2Available = current.opponents[1].image.length > 0
-                if (img1Available) {
-                    team1Img = `data:image/png;base64,${current.opponents[0].image}`
-                }
-
-                if (img2Available) {
-                    team2Img = `data:image/png;base64,${current.opponents[1].image}`
-                }
-
-                let b64Img = ""
-                const imageAvailable = current.serie.image.length > 0
-                if (imageAvailable) {
-                    b64Img = `data:image/png;base64,${current.serie.image}`
-                }
+                const className = props.matchesOpen ? `live-card ${item.position} live-card-transit` : `live-card ${item.position}`
+                console.log(item.content)
+                const current = getMatchesModel(item.content)
+                const alterImg = gameLogoList[current.gameId]
 
                 return (
                     <div key={current.id} className={className} onClick={() => onLiveCardClicked(idx)}>
@@ -90,18 +71,18 @@ const Carousel = forwardRef((props, ref) => {
                         <div className="live-details">
                             <div className="tournament-detail">
                                 <img
-                                    src={imageAvailable ? b64Img : gameLogoList[current.gameId]}
+                                    src={current.tourImg ? current.tourImg : alterImg}
                                     alt={current.id}
                                     className="small-logo"
                                 />
 
-                                <div className="live-tournament-title">{current.serie.leagueName}</div>
+                                <div className="live-tournament-title">{current.tournament}</div>
                             </div>
 
                             <div className="live-teams-section">
                                 <div className="live-team">
-                                    <img className="small-logo" src={team1Img} alt={team1} />
-                                    <div className="team-title">{team1}</div>
+                                    <img className="small-logo" src={current.img1 ? current.img1 : alterImg} alt={current.team1} />
+                                    <div className="team-title">{current.team1}</div>
                                 </div>
 
                                 <div className="live-result">
@@ -111,8 +92,8 @@ const Carousel = forwardRef((props, ref) => {
 
                             <div className="live-teams-section">
                                 <div className="live-team">
-                                    <img className="small-logo" src={team2Img} alt={team2} />
-                                    <div className="team-title">{team2}</div>
+                                    <img className="small-logo" src={current.img2 ? current.img2 : alterImg} alt={current.team2} />
+                                    <div className="team-title">{current.team2}</div>
                                 </div>
 
                                 <div className="live-result">
@@ -120,12 +101,21 @@ const Carousel = forwardRef((props, ref) => {
                                 </div>
                             </div>
 
-                            <div className="live-tournament-name">{current.name}</div>
+                            <div className="live-tournament-name">{current.tag}</div>
 
                         </div>
 
                         <div className="live-video">
-
+                            <iframe
+                                className="live-iframe"
+                                src={`${item.content.streams}&localhost`}
+                                frameborder="0"
+                                allowfullscreen="true"
+                                scrolling="no"
+                                height="100%"
+                                width="100%"
+                                title={current.id}>
+                            </iframe>
                         </div>
 
 

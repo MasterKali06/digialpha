@@ -8,3 +8,7 @@
 .home{
   display: flex;
 }
+
+::-webkit-scrollbar-track {
+  background: var(--main-dark);
+}

@@ -61,3 +61,8 @@ export const gameLogoList = [
     csgoLogo, dotaLogo, lolLogo, valorantLogo,
     rsiegeLogo, owLogo, codmwLogo, fifaLogo
 ]
+
+export const gameNameList = [
+    "Counter Strike", "Dota", "League of legend", "Valorant",
+    "Rainbow 6", "Overwatch", "Call of duty", "Fifa"
+]
