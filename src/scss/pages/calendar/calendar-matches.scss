@@ -70,11 +70,13 @@
 .calendar-input{
     border-radius: 10%;
     text-align: center;
+    z-index: 101;
     color: var(--second-light);
     outline: none;
     font-size: 1rem;
     padding: 10px;
     cursor: pointer;
+    margin-right: 10px;
     background-color: var(--first-dark);
     box-shadow: 
         0 0 2px var(--main-light),
@@ -225,4 +227,25 @@
         width: 1rem;
         height: 1rem;
     }
+}
+
+.calendar-change-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding-right: 10px;
+}
+
+.calendar-change-btn:hover{
+    transform: scale(1.1);
+}
+
+.range-calendar-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.spinner-div{
+    position: absolute;
+    left: calc(50% - 20px);
+    top: calc(60% - 20px);
 }

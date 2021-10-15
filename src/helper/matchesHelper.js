@@ -30,8 +30,8 @@ export const getMatchesModel = (match) => {
 
 
     if (match.serie) {
-        if (match.serie.leagueName !== "None") {
-            tournament = match.serie.leagueName
+        if (match.serie.name !== "None") {
+            tournament = match.serie.name
         }
 
         if (match.serie.image.length > 0) {

@@ -35,8 +35,12 @@ function Navbar() {
     const PageItem = ({ pageId }) => {
         switch (pageId) {
             case 1:
-                return <BsCalendarRange className="page-item" title="calendar" style={style(1)} />
-
+                return (
+                    <div className="page-item-container">
+                        <BsCalendarRange className="page-item" style={style(1)} />
+                        <span data-tooltip="Calendar" ></span>
+                    </div>
+                )
             case 2:
                 return <CgEricsson className="page-item" title="tournaments" style={style(2)} />
 

@@ -5,6 +5,7 @@ import { gameColorList, gameShadowList } from "../../constants/constants";
 import { useSelector } from "react-redux"
 import "../../scss/pages/calendar/calendar-live.scss";
 import CalendarMatches from "./calendar-matches"
+import { PropagateLoader } from "react-spinners"
 
 
 const CalendarLive = () => {
@@ -40,18 +41,6 @@ const CalendarLive = () => {
     }
 
 
-    // const test = {
-    //   matches: [
-    //     { id: 1 },
-    //     { id: 2 },
-    //     { id: 3 },
-    //     { id: 4 },
-    //     { id: 5 },
-    //     { id: 6 },
-    //     { id: 7 },
-    //   ]
-    // }
-
     const mRef = useRef()
 
     return (
@@ -73,11 +62,17 @@ const CalendarLive = () => {
                 <PrevArrow onClick={() => { mRef.current.prevClicked() }} />
                 <div className="live-slideshow">
                     {
-                        ongoing.matches.length > 0 ?
-                            <Carousel ref={mRef} cards={ongoing} matchesOpen={matchesMenuOpen} />
+                        // loading
+                        ongoing.loading ?
+                            <PropagateLoader color={gameColorList[gameId]} loading={ongoing.loading} />
+                            :
+                            // live matches loaded
+                            ongoing.matches.length > 0 ?
+                                <Carousel ref={mRef} cards={ongoing} matchesOpen={matchesMenuOpen} />
 
-                            // no live matches container goes here
-                            : <></>
+                                // no live matches
+                                : <></>
+
                     }
                 </div>
 
@@ -94,7 +89,7 @@ const CalendarLive = () => {
                     />
                 </div>
 
-                {/* matches container */}
+                {/* past and upcoming matches container */}
                 <CalendarMatches />
 
 

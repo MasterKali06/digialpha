@@ -6,7 +6,7 @@ const getOngoingMatches = () => ({
 })
 
 const getOngoingMatchesSuccess = matches => ({
-    type: actions.GET_ONGOING_MATCHES_SUCCES,
+    type: actions.GET_ONGOING_MATCHES_SUCCESS,
     payload: matches
 })
 
@@ -20,7 +20,7 @@ const getUpcomingMatches = () => ({
 })
 
 const getUpcomingMatchesSuccess = matches => ({
-    type: actions.GET_UPCOMING_MATCHES_SUCCES,
+    type: actions.GET_UPCOMING_MATCHES_SUCCESS,
     payload: matches
 })
 
@@ -38,7 +38,7 @@ const getPastMatches = matches => ({
 })
 
 const getPastMatchesSuccess = matches => ({
-    type: actions.GET_PAST_MATCHES_SUCCES,
+    type: actions.GET_PAST_MATCHES_SUCCESS,
     payload: matches
 })
 
@@ -47,7 +47,7 @@ const getPastMatchesFail = error => ({
     payload: error
 })
 
-export const getMatches = (gameId, matchMode, range = null) => (dispatch) => {
+export const getMatches = (gameId, matchMode, start = null, end = null) => (dispatch) => {
 
     let func = {}
     switch (matchMode) {
@@ -65,10 +65,9 @@ export const getMatches = (gameId, matchMode, range = null) => (dispatch) => {
 
     // return function (dispatch) {
     dispatch(func.loading())
-    axios.get(`http://localhost:5000/matches?game=${gameId}&range=${range}&matchMode=${matchMode}`)
+    axios.get(`http://localhost:5000/matches?game=${gameId}&start=${start}&end=${end}&matchMode=${matchMode}`)
         .then(
             response => {
-
                 dispatch(func.success(response.data))
             })
         .catch(err => dispatch(func.fail(err.message)))

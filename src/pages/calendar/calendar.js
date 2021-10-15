@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getMatches } from "../../redux/actions/getMatches";
 import CalendarLive from "./calendar-live";
@@ -8,7 +9,10 @@ function Calendar() {
 
   // dispatching live matches
   const dispatch = useDispatch()
-  dispatch(getMatches(gameId, "running"))
+  useEffect(() => {
+    dispatch(getMatches(gameId, "running"))
+
+  }, [gameId, dispatch])
 
 
   return (

@@ -2,7 +2,7 @@
 
 
 .navbar{
-    overflow:auto;
+    overflow: visible;
     max-width: 80px;
     height: 100vh;
     background: var(--first-dark);
@@ -23,6 +23,11 @@
     align-items: center;
 }
 
+
+.page-item-container{
+    position: relative;
+}
+
 .page-item{
     width: 24px;
     height: 24px;
@@ -32,6 +37,11 @@
         height: 20px;
     }
 }
+
+.page-item:hover{
+    transform: scale(1.1);
+}
+
 
 .image-holder{
     width: 100%;

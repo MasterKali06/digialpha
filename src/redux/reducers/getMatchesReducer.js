@@ -14,7 +14,7 @@ export const ongoingMatchesReducer = (state = initialState, action) => {
                 loading: true
             }
 
-        case actions.GET_ONGOING_MATCHES_SUCCES:
+        case actions.GET_ONGOING_MATCHES_SUCCESS:
             return {
                 loading: false,
                 matches: action.payload,
@@ -41,7 +41,7 @@ export const upcomingMatchesReducer = (state = initialState, action) => {
                 ...state,
                 loading: true
             }
-        case actions.GET_UPCOMING_MATCHES_SUCCES:
+        case actions.GET_UPCOMING_MATCHES_SUCCESS:
             return {
                 loading: false,
                 matches: action.payload,
@@ -68,7 +68,7 @@ export const pastMatchesReducer = (state = initialState, action) => {
                 loading: true
             };
 
-        case actions.GET_PAST_MATCHES_SUCCES:
+        case actions.GET_PAST_MATCHES_SUCCESS:
             return {
                 loading: false,
                 matches: action.payload,

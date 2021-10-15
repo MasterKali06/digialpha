@@ -71,7 +71,7 @@
     height: 90%;
     position: relative;
     margin: 0 auto;
-    top: 48%;
+    top: 40%;
     z-index: 100;
     transition: all 0.5s ;
 }
@@ -79,11 +79,11 @@
 
 
 .open-close-btn{
-    position: absolute;
+    position: relative;
     left: calc(50% - 1.75rem);
     width: 4rem;
     height: 4rem;
-    top: -4%;
+    top: 5%;
     border-radius: 50%;
     background-color: var(--first-dark);
     display: flex;
@@ -112,7 +112,7 @@
 
 .opened{
     transition: all 0.8s cubic-bezier(0.175, 0.5, 0, 1.15);
-    top: -40%;
+    top: -48%;
 }
 
 .rotate{
