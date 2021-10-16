@@ -63,7 +63,6 @@ export const getMatches = (gameId, matchMode, start = null, end = null) => (disp
     }
 
 
-    // return function (dispatch) {
     dispatch(func.loading())
     axios.get(`http://localhost:5000/matches?game=${gameId}&start=${start}&end=${end}&matchMode=${matchMode}`)
         .then(

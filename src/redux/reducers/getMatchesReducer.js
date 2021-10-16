@@ -21,7 +21,7 @@ export const ongoingMatchesReducer = (state = initialState, action) => {
                 error: ""
             }
 
-        case action.GET_ONGOING_MATCHES_FAIL:
+        case actions.GET_ONGOING_MATCHES_FAIL:
             return {
                 loading: false,
                 matches: [],

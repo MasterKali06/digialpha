@@ -12,13 +12,11 @@
     0 0 6px var(--second-dark);
     
     display: flex;
-    justify-content: center;
     flex-direction: column;
     
 }
 
 .date-picker-container{
-    flex: 0.1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,10 +95,11 @@
 
 .matches-content-box{
     overflow-y: scroll;
+    margin-top: 2%;
     padding: 10px;
-    flex: 0.9;
+    margin-bottom: 2%;
     display: grid;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     grid-template-columns: repeat(3, 30%);
     column-gap: 3%;
