@@ -1,0 +1,90 @@
+@import "../../media-query.scss";
+@import "./mixins.scss";
+
+.match-container{
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(
+        45deg,
+        var(--main-dark),
+        var(--first-dark),
+        var(--second-dark)
+    );
+}
+
+.match-tour{
+    flex: 0.1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tour-logo{
+    width: 42px;
+    height: 42px;
+    padding-right: 20px;
+}
+
+.tour-name{
+    font-size: 1.2rem;
+    color: var(--light-grey);
+    text-shadow: 0 0 4px var(--second-dark);
+}
+
+.video-container{
+    flex: 0.4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include responsive(tab-land){
+        justify-content: center;
+        flex: 0.35;
+    }
+}
+
+
+.video-content-box{
+    width: 40%;
+    height: 100%;
+    @include elevation();
+
+    @include responsive(tab-land){
+        width: 70%;
+    }
+
+    @include responsive(tab-port){
+        width: 90%;
+    }
+}
+
+.opponent-details1{
+    @include opponent-details();
+    
+    @include responsive(tab-land){
+        @include responsive-opp();
+        left: 10%;
+    }
+}
+
+.opponent-details2{
+    @include opponent-details();
+
+    @include responsive(tab-land){
+        @include responsive-opp();
+        right: 10%;
+    }
+}
+
+.detail-container{
+
+}
+
+.tab-container{
+
+}
+
+

@@ -34,7 +34,8 @@ const CalendarMatches = () => {
     useEffect(() => {
         dispatch(getMatches(gameId, "past", start, end))
         dispatch(getMatches(gameId, "upcoming", start, end))
-    }, [start, end, dispatch, gameId])
+    })
+
 
     const onTimeChange = (epoch) => {
         if (epoch.start) {
@@ -42,6 +43,7 @@ const CalendarMatches = () => {
             setEnd(epoch.end)
         } else {
             setStart(epoch)
+            setEnd(null)
         }
     }
 
@@ -59,10 +61,11 @@ const CalendarMatchesUi = (props) => {
 
     const past = useSelector(state => state.pastMatches)
     const upcoming = useSelector(state => state.upcomingMatches)
+    var loading = past.loading || upcoming.loading
 
 
-    var loading = past.loading && upcoming.loading
     var matches = past.matches.concat(upcoming.matches)
+
     matches.sort((a, b) => b.beginAt - a.beginAt)
 
 
@@ -74,19 +77,20 @@ const CalendarMatchesUi = (props) => {
     let rangeMatches;
     if (matches.length > 0 && rangePicker) {
         var firstDate = new Date(parseInt(matches[0].beginAt))
-        var firstDay = firstDate.getDay()
-        rangeMatches = [{ date: firstDay, matches: [matches[0]] }]
+        var firstDay = firstDate.getDate()
+        rangeMatches = [{ day: firstDay, date: firstDate.toString().substring(0, 15), matches: [matches[0]] }]
         let y = 0
         for (let i = 1; i < matches.length; i++) {
             var curr = matches[i]
             var date = new Date(parseInt(curr.beginAt));
-            var day = date.getDay()
+            var day = date.getDate()
 
-            if (day !== rangeMatches[y].date) {
+            if (day !== rangeMatches[y].day) {
                 y++
                 rangeMatches.push(
                     {
-                        date: day,
+                        day: day,
+                        date: date.toString().substring(0, 15),
                         matches: [matches[i]]
                     }
                 )
@@ -172,20 +176,22 @@ const CalendarMatchesUi = (props) => {
                         {
                             rangePicker ?
                                 // range with sticky header goes here
-                                rangeMatches ?
-                                    rangeMatches.map(item => (
-                                        <>
-                                            <div>{item.date}</div>
-                                            <div className="matches-content-box">
-                                                {item.matches.map(match => (
-                                                    <MatchCard match={match} />
-                                                ))}
-                                            </div>
-                                        </>
-                                    ))
-                                    :
-                                    <></>
-
+                                <div className="range-matches-container">
+                                    {rangeMatches ?
+                                        rangeMatches.map(item => (
+                                            <>
+                                                <div className="date-header">{item.date}</div>
+                                                <div className="range-matches-content">
+                                                    {item.matches.map(match => (
+                                                        <MatchCard match={match} />
+                                                    ))}
+                                                </div>
+                                            </>
+                                        ))
+                                        :
+                                        <></>
+                                    }
+                                </div>
                                 :
                                 <div className="matches-content-box">
                                     {matches.map(match => (

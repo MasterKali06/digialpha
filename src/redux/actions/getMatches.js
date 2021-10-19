@@ -48,6 +48,7 @@ const getPastMatchesFail = error => ({
 })
 
 export const getMatches = (gameId, matchMode, start = null, end = null) => (dispatch) => {
+    console.log("dispatching")
 
     let func = {}
     switch (matchMode) {

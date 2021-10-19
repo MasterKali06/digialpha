@@ -1,8 +1,8 @@
 import * as actions from "../../constants/actions"
 
-const gameIdReducer = (state = 0, action) => {
+const matchIdReducer = (state = null, action) => {
     switch (action.type) {
-        case actions.GAME_CHANGED:
+        case actions.MATCH_CHANGED:
             return action.payload;
 
         default:
@@ -10,4 +10,4 @@ const gameIdReducer = (state = 0, action) => {
     }
 }
 
-export default gameIdReducer;
+export default matchIdReducer;

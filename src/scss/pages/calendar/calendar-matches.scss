@@ -66,6 +66,7 @@
 }
 
 .calendar-input{
+    width: 100%;
     border-radius: 10%;
     text-align: center;
     z-index: 101;
@@ -77,9 +78,9 @@
     margin-right: 10px;
     background-color: var(--first-dark);
     box-shadow: 
-        0 0 2px var(--main-light),
-        0 0 4px var(--first-light),
-        0 0 8px var(--second-light);
+        0 0 2px var(--dark-grey),
+        0 0 4px var(--dark-grey),
+        0 0 8px var(--light-grey);
 
 
     @include responsive(tab-land){
@@ -94,7 +95,7 @@
 }
 
 .matches-content-box{
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-top: 2%;
     padding: 10px;
     margin-bottom: 2%;
@@ -114,118 +115,13 @@
     }
 }
 
+
 .matches-content-box::-webkit-scrollbar{
     background: var(--main-dark);
 }
 
 .matches-content-box::-webkit-scrollbar-thumb{
     background: var(--dark-grey);
-}
-
-.matches-content-item{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    border-radius: 10px;
-    padding: 5%;
-    background-image: linear-gradient(
-        45deg,
-        var(--aura-purple),
-        var(--frost-blue-light)
-    );
-
-    box-shadow: 0 0 10px;
-
-}
-
-
-.tournament-row{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 10px;
-}
-
-.match-tournament-detail{
-    display: flex;
-    flex: 0.8;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.match-type{
-    font-size: 0.7rem;
-    color: var(--main-light);
-
-    @include responsive(desktop){
-        font-size: 0.6rem;
-    }
-
-    @include responsive(tab-port){
-        font-size: 0.5rem;
-    }
-}
-
-.match-tournament-title{
-    font-size: 0.9rem;
-    color: var(--main-light);
-    padding: 1px;
-
-    @include responsive(desktop){
-        font-size: 0.7rem;
-    }
-
-    @include responsive(tab-port){
-        font-size: 0.6rem;
-    }
-}
-
-.team-row{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 5px;
-    padding-top: 5px;
-}
-
-.team-detail{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.match-title{
-    font-size: 0.8rem;
-    color: var(--main-dark);
-    padding: 5px;
-
-    @include responsive(tab-land){
-        font-size: 0.7rem;
-    }
-}
-
-.match-tag{
-    font-size: 0.7rem;
-
-    @include responsive(tab-land){
-        font-size: 0.6rem;
-    }
-}
-
-.small-logo{
-    width: 1.5rem;
-    height: 1.5rem;
-    padding-right: 10px;
-
-    @include responsive(desktop){
-        width: 1.2rem;
-        height: 1.2rem;
-    }
-
-    @include responsive(tab-port){
-        width: 1rem;
-        height: 1rem;
-    }
 }
 
 .calendar-change-btn {
@@ -247,4 +143,41 @@
     position: absolute;
     left: calc(50% - 20px);
     top: calc(60% - 20px);
+}
+
+.range-matches-container{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.range-matches-content{
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    margin-bottom: 2%;
+    display: grid;
+    align-items: flex-start;
+    justify-content: center;
+    grid-template-columns: repeat(3, 30%);
+    column-gap: 3%;
+    row-gap: 20px;
+
+    @include responsive(tab-land){
+        grid-template-columns: repeat(2, 45%);
+    }
+    
+    @include responsive(tab-port){
+        grid-template-columns: repeat(1, 90%);
+    }
+}
+
+.date-header{
+    padding-left: 10px;
+    width: 150px;
+    font-size: 1rem;
+    margin-top: 20px;
+    color: var(--dark-grey);
+    text-shadow: 0 0 16px #D3D3D380;
 }

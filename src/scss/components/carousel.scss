@@ -161,11 +161,16 @@
 
 .live-video{
     flex: 0.7;
+    min-height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--second-dark);
     border-radius: 10px;
+
+    @include responsive(desktop){
+        min-height: 260px;
+    }
 }
 
 .live-iframe{

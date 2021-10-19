@@ -60,9 +60,10 @@ const Carousel = forwardRef((props, ref) => {
         <>
             {show.map((item, idx) => {
                 const className = props.matchesOpen ? `live-card ${item.position} live-card-transit` : `live-card ${item.position}`
-                console.log(item.content)
                 const current = getMatchesModel(item.content)
                 const alterImg = gameLogoList[current.gameId]
+
+                console.log(item.content.streams)
 
                 return (
                     <div key={current.id} className={className} onClick={() => onLiveCardClicked(idx)}>
@@ -106,16 +107,23 @@ const Carousel = forwardRef((props, ref) => {
                         </div>
 
                         <div className="live-video">
-                            <iframe
-                                className="live-iframe"
-                                src={`${item.content.streams}&localhost`}
-                                frameborder="0"
-                                allowfullscreen="true"
-                                scrolling="no"
-                                height="100%"
-                                width="100%"
-                                title={current.id}>
-                            </iframe>
+                            {
+                                item.content.streams !== "None" ?
+                                    <iframe
+                                        className="live-iframe"
+                                        src={`${item.content.streams}&localhost`}
+                                        frameborder="0"
+                                        allowfullscreen="true"
+                                        scrolling="no"
+                                        height="100%"
+                                        width="100%"
+                                        title={current.id}>
+                                    </iframe>
+                                    :
+                                    // no live stream
+                                    <></>
+                            }
+
                         </div>
 
 

@@ -7,6 +7,7 @@ import Calendar from "./pages/calendar/calendar";
 import Tournaments from "./pages/tournaments"
 import Teams from "./pages/teams"
 import News from "./pages/news"
+import Match from "./pages/match"
 
 // components
 import Navbar from './components/navbar'
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/" exact>
           <Main />
         </Route>
+        <Route path="/match" component={Match} />
         <div className="home">
           <Navbar />
           <Route path="/calendar" component={Calendar} />

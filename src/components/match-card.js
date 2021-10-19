@@ -1,15 +1,45 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { gameShadowList, gameLogoList } from "../constants/constants";
-import { getMatchesModel } from "../helper/matchesHelper";
-
+import { calculateTimeLeft, getMatchesModel } from "../helper/matchesHelper";
+import "../scss/components/match-card.scss"
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { changeMatchId } from "../redux/actions/changeMachId";
 
 const MatchCard = (props) => {
+
+    const history = useHistory();
+    const dispatch = useDispatch();
 
     const match = props.match
     const curr = getMatchesModel(match)
     const alterImg = gameLogoList[curr.gameId]
     var date = new Date(parseInt(match.beginAt))
     var time = `${date.getHours()}:${date.getMinutes()}`
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(match.beginAt));
+    useEffect(() => {
+        setTimeout(() => {
+            setTimeLeft(calculateTimeLeft(match.beginAt));
+        }, 1000);
+
+        // return () => clearTimeout(timer);
+    })
+
+    const timerComponents = [];
+
+    Object.keys(timeLeft).forEach((interval) => {
+
+        timerComponents.push(
+            <span>
+                {timeLeft[interval] <= "9" ? `0${timeLeft[interval]}` : timeLeft[interval]}{interval !== "seconds" ? ":" : ""}
+            </span>
+        );
+    });
+
+
+    var upcomingMatch = match.status === "not_started"
 
     if (match.status === "canceled") {
         return <></>
@@ -24,10 +54,16 @@ const MatchCard = (props) => {
         }
     }
 
+    const openMatchPage = () => {
+        dispatch(changeMatchId({ id: match.id, status: match.status }))
+        history.push("./match")
+    }
+
     return (
         <motion.div
             key={curr.id}
             className="matches-content-item"
+            onClick={openMatchPage}
             variants={variants}
             initial="from"
             animate="to"
@@ -36,8 +72,8 @@ const MatchCard = (props) => {
             whileHover={{ scale: 1.1 }}
         >
             {
-                match.status === "not_started" ?
-                    <div>CountDown</div>
+                upcomingMatch ?
+                    <div className="count-down">{timerComponents.length ? timerComponents : <></>}</div>
                     : <></>
             }
 
