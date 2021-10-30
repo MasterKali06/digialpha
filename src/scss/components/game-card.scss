@@ -1,0 +1,35 @@
+
+@import "./mixin.scss";
+
+.game-btn {
+    border: none;
+    margin-bottom: 10px;
+    margin-right: 10px;
+
+    background: transparent;
+    cursor: pointer;
+    
+    color: rgba(white, .7);
+    background: rgba(white, .05);
+    text-decoration: none;
+    
+    padding: 10px 15px;
+    
+    border-radius: 10px;
+    
+    transition: all .2s;
+    
+    @include border-gradient(gray, darkgray);
+    
+    &:hover {
+      @include border-gradient(hotpink, skyblue);
+      color: white;
+      background: rgba(skyblue, .05);
+    }
+  }
+
+.active{
+  @include border-gradient(hotpink, skyblue);
+  color: hotpink;
+  background: rgba(skyblue, .05);
+}

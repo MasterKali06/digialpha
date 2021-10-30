@@ -32,9 +32,15 @@ const CalendarMatches = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getMatches(gameId, "past", start, end))
-        dispatch(getMatches(gameId, "upcoming", start, end))
-    })
+        let mounted = true;
+
+        dispatch(getMatches(gameId, "past", mounted, start, end))
+        dispatch(getMatches(gameId, "upcoming", mounted, start, end))
+
+        return () => {
+            mounted = false;
+        }
+    }, [start, end])
 
 
     const onTimeChange = (epoch) => {

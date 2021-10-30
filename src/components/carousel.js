@@ -1,7 +1,11 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { colors, gameColorList, gameLogoList, gameShadowList } from "../constants/constants";
 import { getMatchesModel } from "../helper/matchesHelper";
 import "../scss/components/carousel.scss"
+import { changeMatchId } from "../redux/actions/changeMachId";
+
 
 const Carousel = forwardRef((props, ref) => {
 
@@ -42,6 +46,9 @@ const Carousel = forwardRef((props, ref) => {
     }, [cards, activeIdx])
 
 
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     const onLiveCardClicked = (idx) => {
         if ( // active todo
             (idx === 1 && show.length !== 2) ||
@@ -49,7 +56,9 @@ const Carousel = forwardRef((props, ref) => {
             (idx === 0 && activeIdx === 0) ||
             (show.length === 1)
         ) {
-            console.log("im active")
+
+            dispatch(changeMatchId({ id: show[idx].content.id, status: show[idx].content.status }))
+            history.push("./match")
         } else {
             // inactive
             idx === 0 ? setActiveIdx(activeIdx - 1) : setActiveIdx(activeIdx + 1)
@@ -112,8 +121,8 @@ const Carousel = forwardRef((props, ref) => {
                                     <iframe
                                         className="live-iframe"
                                         src={`${item.content.streams}&localhost`}
-                                        frameborder="0"
-                                        allowfullscreen="true"
+                                        frameBorder="0"
+                                        allowFullScreen={true}
                                         scrolling="no"
                                         height="100%"
                                         width="100%"

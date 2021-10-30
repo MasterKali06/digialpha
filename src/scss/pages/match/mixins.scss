@@ -1,20 +1,7 @@
-@mixin opponent-details{
-    width: 25%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 @mixin elevation {
     z-index: 10;
     box-shadow: 0 0 10px;
-    border-radius: 10px;
 }
 
-@mixin responsive-opp {
-    width: 45%;
-    height: 20%;
-    position: absolute;
-    top: 50%;
-}

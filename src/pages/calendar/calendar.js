@@ -10,7 +10,15 @@ function Calendar() {
   // dispatching live matches
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getMatches(gameId, "running"))
+    let mounted = true;
+
+    if (mounted) {
+      dispatch(getMatches(gameId, "running", mounted))
+    }
+
+    return () => {
+      mounted = false
+    }
 
   }, [gameId, dispatch])
 
