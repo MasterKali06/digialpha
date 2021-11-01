@@ -1,0 +1,149 @@
+
+.tour-body{
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    background: var(--main-dark);
+}
+
+
+.tour-tabs{
+    position: absolute;
+    left: 80px;
+    top: 0;
+    width: calc(100% - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tour-tabs h1{
+    padding: 15px 0;
+    margin-right: 5%;
+    margin-left: 5%;
+    font-size: 20px;
+    color: var(--dark-grey);
+    cursor: pointer;
+}
+
+.tab-anim{
+    animation: pulse 1.2s infinite alternate;
+    color: var(--second-light) !important;
+    font-size: 24px !important;
+    text-shadow: 0 0 2px var(--light-grey);
+}
+
+@keyframes pulse {
+    0%{
+        transform: scale(1);
+    }
+    100%{
+        transform: scale(1.1);
+        text-shadow: 0 0 10px var(--light-grey);
+    }
+}
+
+.tour-loading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.table-container{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 80px !important;    
+    height: fit-content;
+}
+
+.thead-tier{
+    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.t-oc-btn{
+    width: 24px;
+    height: 24px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.thead-tier h1{
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
+.tour-table{
+    width: 100%;
+    height: fit-content;
+    text-align: left;
+    display: table;
+    table-layout: fixed;
+}
+
+.t-hidden{
+    display: none;
+}
+
+.tour-table td{
+    color: var(--dark-grey);
+    font-size: 14px;
+}
+
+.td-tour-name{
+    width: 70%;
+    overflow: hidden;
+}
+
+.th-1, .td-1{
+    width: 35%;
+}
+
+.td-1 div{
+    display: flex;
+    align-items: center;
+}   
+
+.th-2, .td-2{
+    width: 10%;
+}
+
+.th-3, .td-3{
+    width: 10%;
+}
+
+.th-4, .td-4{
+    width: 10%;
+}
+
+.th-5, .td-5{
+    width: 15%;
+}
+
+.th-6, .td-6{
+    width: 10%;
+}
+
+.th-7, .td-7{
+    width: 10%;
+}
+
+.tour-table tr:nth-child(odd) {
+    background-color: var(--second-dark);
+}
+
+/* Background-color of the even rows */
+.tour-table tr:nth-child(even) {
+    background-color: var(--first-dark);
+}

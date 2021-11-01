@@ -102,22 +102,21 @@ const Match = () => {
 
         if (teams) {
             if (teams.t1 && teams.t2) {
-                try {
-                    console.log("in effect 2")
-                    var headData = requestHeadToHead(gameId, teams.t1, teams.t2, source)
-                    headData.then(data => {
-                        setHeadToHead(data)
-                        console.log(data)
+                console.log("in effect 2")
+                var headData = requestHeadToHead(gameId, teams.t1, teams.t2, source)
+                headData.then(data => {
+                    setHeadToHead(data)
+                    console.log(data)
 
-                    }).catch(err => console.log(err.message))
-                } catch (error) {
-                    console.log(error)
-                }
+                }).catch(err => {
+                    if (axios.isCancel(err)) {
+                        console.log("canceled")
+                    }
+                })
             }
         }
 
         return () => {
-            console.log("canceled")
             source.cancel()
         }
 

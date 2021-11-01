@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { RiExchangeFundsFill } from "react-icons/ri";
 import { ScaleLoader } from "react-spinners";
 import MatchCard from "../../components/match-card";
+import axios from "axios";
 
 const CalendarMatches = () => {
 
@@ -32,13 +33,13 @@ const CalendarMatches = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        let mounted = true;
+        const source = axios.CancelToken.source();
 
-        dispatch(getMatches(gameId, "past", mounted, start, end))
-        dispatch(getMatches(gameId, "upcoming", mounted, start, end))
+        dispatch(getMatches(gameId, "past", source, start, end))
+        dispatch(getMatches(gameId, "upcoming", source, start, end))
 
         return () => {
-            mounted = false;
+            source.cancel();
         }
     }, [start, end])
 

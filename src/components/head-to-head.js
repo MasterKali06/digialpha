@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import { ClipLoader } from "react-spinners"
 import { gameColorList } from "../constants/constants"
+import { formatImage } from "../helper/commonHelper"
 import "../scss/components/head-to-head.scss"
 
 const HeadToHead = ({ data, teamOne, teamTwo }) => {
@@ -11,13 +12,7 @@ const HeadToHead = ({ data, teamOne, teamTwo }) => {
         return `${dateObj.getFullYear()}/${dateObj.getMonth() + 1}/${dateObj.getDay()}`
     }
 
-    const formatImg = (item) => {
-        if (item.img) {
-            return `data:image/png;base64,${item.img}`
-        } else {
-            return null
-        }
-    }
+
 
     const HthCard = () => (
         <table className="table-container">
@@ -33,12 +28,12 @@ const HeadToHead = ({ data, teamOne, teamTwo }) => {
             {
                 data.map(item => {
 
-                    const img = item.serie ? formatImg(item.serie) : null
+                    const img = item.serie ? formatImage(item.serie.img) : null
 
                     return (
                         <tr>
                             <td className="table-tour">
-                                <img width="42px" height="42px" src={img ? img : ""} alt=" " />
+                                <img width="36px" height="36px" className="hth-serie-logo" src={img ? img : ""} alt=" " />
                                 {item.serie ? item.serie.name : ""}
                             </td>
                             <td>{formatDate(item)}</td>
@@ -59,8 +54,10 @@ const HeadToHead = ({ data, teamOne, teamTwo }) => {
             {data ?
 
                 <HthCard />
-                : <ClipLoader speedMultiplier={0.6} color={gameColorList[gameId]} width="64px" height="64px" />
-
+                :
+                <div className="hth-loader">
+                    <ClipLoader speedMultiplier={0.6} color={gameColorList[gameId]} width="64px" height="64px" />
+                </div>
             }
         </div>
     )

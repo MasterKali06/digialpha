@@ -2,7 +2,6 @@
 
 .hth-body{
     width: 50%;
-    text-align: center;
     height: fit-content;
     color: var(--second-light);
 }
@@ -43,6 +42,11 @@
 }
 
 .hth-serie-logo{
-    width: 42px;
-    height: 42px;
+    margin-right: 10px;
+}
+
+.hth-loader{
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
 }
