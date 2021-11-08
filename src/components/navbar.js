@@ -8,15 +8,17 @@ import { RiTeamFill } from "react-icons/ri"
 import { IoNewspaperOutline } from "react-icons/io5"
 import { useState } from 'react';
 import { colors, gameColorList, gameLogoList, gameShadowList } from '../constants/constants';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { changePageId } from '../redux/actions/changePageId';
 
 
 
 function Navbar() {
 
-    const [selectedPage, setSelectedPage] = useState(1)
 
     const gameId = useSelector(state => state.gameId)
+    const selectedPage = useSelector(state => state.pageId)
+    const dispatch = useDispatch();
 
 
     const pages = [
@@ -64,6 +66,11 @@ function Navbar() {
             "0 0 6px var( --second-dark)",
             // `0 0 7px ${gameShadowList[gameId]}`
         ]
+    }
+
+    const setSelectedPage = (id) => {
+        console.log(id)
+        dispatch(changePageId(id))
     }
 
     return (

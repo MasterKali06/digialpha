@@ -20,11 +20,11 @@ const MatchCard = (props) => {
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(match.beginAt));
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             setTimeLeft(calculateTimeLeft(match.beginAt));
         }, 1000);
 
-        // return () => clearTimeout(timer);
+        return () => clearTimeout(timer);
     })
 
     const timerComponents = [];

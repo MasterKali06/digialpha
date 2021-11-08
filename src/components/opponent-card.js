@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux"
+import { gameLogoList } from "../constants/constants"
 import "../scss/components/opponent-card.scss"
 
 const OpponentCard = (props) => {
@@ -6,10 +8,13 @@ const OpponentCard = (props) => {
     var match = props.match
     var teamNum = props.team.num
 
+    const gameId = useSelector(state => state.gameId)
+    const alterImg = gameLogoList[gameId]
+
     let teamImg;
     var imgAvailable = false;
     if (team) {
-        imgAvailable = team.image.length > 0;
+        imgAvailable = team.image.length > 0 && team.image !== "None";
         if (imgAvailable) {
             teamImg = `data:image/png;base64,${team.image}`
         }
@@ -19,7 +24,7 @@ const OpponentCard = (props) => {
 
     return (
         <div className="opp-card">
-            <img className="opp-logo" alt={team.id} src={imgAvailable ? teamImg : ""} />
+            <img className="opp-logo" alt=" " src={imgAvailable ? teamImg : alterImg} />
 
             <div className="opp-name">{team.name}</div>
 

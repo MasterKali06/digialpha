@@ -6,9 +6,10 @@ import { getSeries } from "../redux/actions/getSeries";
 import { gameColorList } from "../constants/constants"
 import "../scss/pages/tournaments/tournaments.scss";
 import { FadeLoader } from "react-spinners";
-import { arrangeToursByTier, formatDate } from "../helper/tournametsHelper";
+import { arrangeToursByTier } from "../helper/tournametsHelper";
 import Table from "../components/tournaments-table";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
+import { changePageId } from "../redux/actions/changePageId";
 
 const Tournaments = () => {
 
@@ -21,11 +22,12 @@ const Tournaments = () => {
 
         dispatch(getSeries(gameId, "running", source))
         dispatch(getSeries(gameId, "upcoming", source))
+        dispatch(changePageId(2))
 
         return () => {
             source.cancel()
         }
-    }, [])
+    }, [dispatch, gameId])
 
 
     const [year, setYear] = useState(2021)
@@ -37,17 +39,18 @@ const Tournaments = () => {
         return () => {
             source.cancel()
         }
-    }, [year])
+    }, [year, dispatch, gameId])
 
 
     return (
         <TournamentsUi
             gameId={gameId}
+            year={year}
         />
     )
 }
 
-const TournamentsUi = ({ gameId }) => {
+const TournamentsUi = ({ gameId, year }) => {
 
     const ongoing = useSelector(state => state.ongoingSeries)
     const upcoming = useSelector(state => state.upcomingSeries)
@@ -73,26 +76,46 @@ const TournamentsUi = ({ gameId }) => {
     }
 
 
+    const generateTable = (list, index, text) => {
+        if (list.length > 0) {
+
+            let type;
+            switch (tabSelected) {
+                case 0:
+                    type = "past"
+                    break
+                case 1:
+                    type = "running"
+                    break
+                default:
+                    type = "upcoming"
+            }
+
+            return (
+                <>
+                    <Header text={text} open={state[index]} changeTableState={() => changeTableState(index)} />
+                    {<Table gameId={gameId} tourList={list} state={state[index]} type={type} year={year} />}
+                </>
+            )
+        }
+    }
+
+    const generateTab = (index, text) => {
+        return (
+            <h1
+                className={tabSelected === index ? "tab-anim" : ""}
+                style={tabSelected === index ? { color: gameColorList[gameId] } : {}}
+                onClick={() => onTabClicked(index)}
+            >{text}</h1>
+        )
+    }
+
     return (
         <div className="tour-body">
             <div className="tour-tabs">
-                <h1
-                    className={tabSelected === 0 ? "tab-anim" : ""}
-                    style={tabSelected === 0 ? { color: gameColorList[gameId] } : {}}
-                    onClick={() => onTabClicked(0)}
-                >Past</h1>
-
-                <h1
-                    className={tabSelected === 1 ? "tab-anim" : ""}
-                    style={tabSelected === 1 ? { color: gameColorList[gameId] } : {}}
-                    onClick={() => onTabClicked(1)}
-                >Running</h1>
-
-                <h1
-                    className={tabSelected === 2 ? "tab-anim" : ""}
-                    style={tabSelected === 2 ? { color: gameColorList[gameId] } : {}}
-                    onClick={() => onTabClicked(2)}
-                >Upcoming</h1>
+                {generateTab(0, "Past")}
+                {generateTab(1, "Running")}
+                {generateTab(2, "Upcoming")}
             </div>
 
             {
@@ -105,41 +128,11 @@ const TournamentsUi = ({ gameId }) => {
                         {
                             tournaments &&
                             <div className="table-container">
-                                {tournaments.s.length ?
-                                    <>
-                                        <Header text="S tier" open={state[0]} changeTableState={() => changeTableState(0)} />
-                                        {state[0] && <Table gameId={gameId} tourList={tournaments.s} />}
-                                    </>
-                                    : ""
-                                }
-                                {tournaments.a.length ?
-                                    <>
-                                        <Header text="A tier" open={state[1]} changeTableState={() => changeTableState(1)} />
-                                        {state[1] && <Table gameId={gameId} tourList={tournaments.a} />}
-                                    </>
-                                    : ""
-                                }
-                                {tournaments.b.length ?
-                                    <>
-                                        <Header text="B tier" open={state[2]} changeTableState={() => changeTableState(2)} />
-                                        {state[2] && <Table gameId={gameId} tourList={tournaments.b} />}
-                                    </>
-                                    : ""
-                                }
-                                {tournaments.c.length ?
-                                    <>
-                                        <Header text="C tier" open={state[3]} changeTableState={() => changeTableState(3)} />
-                                        {state[3] && <Table gameId={gameId} tourList={tournaments.c} />}
-                                    </>
-                                    : ""
-                                }
-                                {tournaments.d.length ?
-                                    <>
-                                        <Header text="D tier" open={state[4]} changeTableState={() => changeTableState(4)} />
-                                        {state[4] && <Table gameId={gameId} tourList={tournaments.d} />}
-                                    </>
-                                    : ""
-                                }
+                                {generateTable(tournaments.s, 0, "S Tier")}
+                                {generateTable(tournaments.a, 1, "A Tier")}
+                                {generateTable(tournaments.b, 2, "B Tier")}
+                                {generateTable(tournaments.c, 3, "C Tier")}
+                                {generateTable(tournaments.d, 4, "D Tier")}
                             </div>
                         }
                     </>

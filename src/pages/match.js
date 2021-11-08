@@ -5,7 +5,7 @@ import OpponentCard from "../components/opponent-card";
 import { requestHeadToHead, requestMatch, requestTeam } from "../helper/request";
 import GameCard from "../components/game-card";
 import { ClipLoader, SyncLoader } from "react-spinners";
-import { gameColorList } from "../constants/constants";
+import { gameColorList, gameLogoList } from "../constants/constants";
 import axios from "axios";
 import TeamDetails from "../components/team-details";
 import HeadToHead from "../components/head-to-head";
@@ -34,6 +34,7 @@ const Match = () => {
     const [teams, setTeams] = useState(null)
     const [vidToPlay, setVidToPlay] = useState(null)
     const [headToHead, setHeadToHead] = useState(null)
+    const alterImg = gameLogoList[gameId]
 
 
     useEffect(() => {
@@ -42,7 +43,7 @@ const Match = () => {
         var matchData = requestMatch(gameId, mode, matchId.id, source)
         matchData
             .then(data => {
-                if (data.length) {
+                if (data.length > 0) {
 
                     // set match
                     setMatch(data[0])
@@ -56,6 +57,7 @@ const Match = () => {
                             })
                         }
                     }
+                    console.log("match and video set")
 
                     // handle teams and set them
                     var opp = data[0].opponents
@@ -65,11 +67,12 @@ const Match = () => {
                             t2: opp[1] ? opp[1].id : null
                         }
                     )
-
                     if (opp[0]) {
                         var teamOne = requestTeam(gameId, opp[0].id, source)
+                        console.log("team 1 requested")
                         teamOne.then(team => {
-                            if (team.length) {
+                            if (team.length > 0) {
+                                console.log(team[0])
                                 setTeamOne(team[0])
                             }
                         }).catch(err =>
@@ -127,7 +130,7 @@ const Match = () => {
     let tourImg;
     if (match) {
         if (match.serie) {
-            if (match.serie.image) {
+            if (match.serie.image && match.serie.image !== "None") {
                 imgAvailable = true
                 tourImg = `data:image/png;base64,${match.serie.image}`
             }
@@ -228,8 +231,9 @@ const Match = () => {
         </>
     )
 
+    // console.log(match)
+    console.log(match)
 
-    console.log(headToHead)
 
     return (
         <>
@@ -239,7 +243,7 @@ const Match = () => {
 
                         <div className="match-tour">
                             {/* logo and serie name goes here */}
-                            <img className="tour-logo" src={imgAvailable ? tourImg : ""} alt={match ? match.id : ""} />
+                            <img className="tour-logo" src={imgAvailable ? tourImg : alterImg} alt=" " />
                             <div className="tour-name">{match ? match.serie ? match.serie.name : "" : ""}</div>
 
 

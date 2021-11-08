@@ -1,8 +1,10 @@
+@import "../../media-query.scss";
+
 
 .tour-body{
     width: 100%;
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     margin: 0 auto;
     display: flex;
@@ -13,9 +15,11 @@
 
 .tour-tabs{
     position: absolute;
+    z-index: 1000;
     left: 80px;
+    right: 40px;
     top: 0;
-    width: calc(100% - 80px);
+    width: calc(100% - 120px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,6 +32,14 @@
     font-size: 20px;
     color: var(--dark-grey);
     cursor: pointer;
+
+    @include responsive(tab-land){
+        font-size: 17px;
+    }
+
+    @include responsive(tab-port){
+        font-size: 15px;
+    }
 }
 
 .tab-anim{
@@ -35,6 +47,14 @@
     color: var(--second-light) !important;
     font-size: 24px !important;
     text-shadow: 0 0 2px var(--light-grey);
+
+    @include responsive(tab-land){
+        font-size: 21px;
+    }
+
+    @include responsive(tab-port){
+        font-size: 19px;
+    }
 }
 
 @keyframes pulse {
@@ -54,6 +74,7 @@
 }
 
 .table-container{
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -61,89 +82,5 @@
     height: fit-content;
 }
 
-.thead-tier{
-    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
-.t-oc-btn{
-    width: 24px;
-    height: 24px;
-    margin-right: 20px;
-    cursor: pointer;
-}
 
-.thead-tier h1{
-    font-size: 18px;
-    padding: 10px 20px;
-}
-
-.tour-table{
-    width: 100%;
-    height: fit-content;
-    text-align: left;
-    display: table;
-    table-layout: fixed;
-}
-
-.t-hidden{
-    display: none;
-}
-
-.tour-table td{
-    color: var(--dark-grey);
-    font-size: 14px;
-}
-
-.td-tour-name{
-    width: 70%;
-    overflow: hidden;
-}
-
-.th-1, .td-1{
-    width: 35%;
-}
-
-.td-1 div{
-    display: flex;
-    align-items: center;
-}   
-
-.th-2, .td-2{
-    width: 10%;
-}
-
-.th-3, .td-3{
-    width: 10%;
-}
-
-.th-4, .td-4{
-    width: 10%;
-}
-
-.th-5, .td-5{
-    width: 15%;
-}
-
-.th-6, .td-6{
-    width: 10%;
-}
-
-.th-7, .td-7{
-    width: 10%;
-}
-
-.tour-table tr:nth-child(odd) {
-    background-color: var(--second-dark);
-}
-
-/* Background-color of the even rows */
-.tour-table tr:nth-child(even) {
-    background-color: var(--first-dark);
-}

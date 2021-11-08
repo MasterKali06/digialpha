@@ -1,12 +1,10 @@
 import "../../scss/pages/calendar/calendar-matches.scss"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect, useState, connect } from "react"
+import { useEffect, useState } from "react"
 import { getMatches } from "../../redux/actions/getMatches";
-import DatePicker, { Calendar } from 'react-modern-calendar-datepicker';
+import DatePicker from 'react-modern-calendar-datepicker';
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import { colors, gameColorList, gameLogoList, gameShadowList } from "../../constants/constants";
-import { getMatchesModel } from "../../helper/matchesHelper";
-import { motion } from "framer-motion";
+import { gameColorList } from "../../constants/constants";
 import { RiExchangeFundsFill } from "react-icons/ri";
 import { ScaleLoader } from "react-spinners";
 import MatchCard from "../../components/match-card";

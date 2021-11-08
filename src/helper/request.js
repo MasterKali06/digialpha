@@ -27,3 +27,12 @@ export const requestHeadToHead = async (gameId, teamOne, teamTwo, source) => {
     )
     return response.data
 }
+
+
+export const requestSerie = async (gameId, type, id, year, source) => {
+    var response = await axios.get(
+        `http://localhost:5000/series?game=${gameId}&serieMode=${type}&serieId=${id}&year=${year}`,
+        { cancelToken: source.token }
+    )
+    return response.data
+}

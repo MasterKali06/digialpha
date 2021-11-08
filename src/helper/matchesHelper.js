@@ -14,16 +14,24 @@ export const getMatchesModel = (match) => {
     let tourImg;
 
     if (match.opponents[0]) {
-        team1 = match.opponents[0].name
-        if (match.opponents[0].image.length > 0) {
-            team1Img = `data:image/png;base64,${match.opponents[0].image}`
+        if (match.opponents[0] === "TBD") {
+            team1 = "TBD"
+        } else {
+            team1 = match.opponents[0].name
+            if (match.opponents[0].image.length > 0 && match.opponents[0].image !== "None") {
+                team1Img = `data:image/png;base64,${match.opponents[0].image}`
+            }
         }
     }
 
     if (match.opponents[1]) {
-        team2 = match.opponents[1].name
-        if (match.opponents[1].image.length > 0) {
-            team2Img = `data:image/png;base64,${match.opponents[1].image}`
+        if (match.opponents[1] === "TBD") {
+            team2 = "TBD"
+        } else {
+            team2 = match.opponents[1].name
+            if (match.opponents[1].image.length > 0 && match.opponents[1].image !== "None") {
+                team2Img = `data:image/png;base64,${match.opponents[1].image}`
+            }
         }
     }
 

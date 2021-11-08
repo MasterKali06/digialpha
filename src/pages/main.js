@@ -21,8 +21,10 @@ import owImg from '../assets/images/ow-img.jpg';
 import codmwImg from '../assets/images/codmw-img.jpg';
 import fifaImg from '../assets/images/fifa-img.jpg';
 
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { changeGameId } from "../redux/actions/changeGameId";
+import { changePageId } from "../redux/actions/changePageId";
 
 const Main = () => {
 
@@ -32,6 +34,10 @@ const Main = () => {
   function menuItemClicked() {
     history.push("./calendar")
   }
+
+  useEffect(() => {
+    dispatch(changePageId(1))
+  }, [dispatch])
 
   const getVariant = (index) => {
     return {
@@ -92,36 +98,6 @@ const Main = () => {
           </motion.div>
         ))}
       </div>
-
-      {/* <div className="menu-two">
-        {menuTwoItems.map((item, index) => (
-          <motion.div
-            key={item.id}
-            className={item.name}
-            initial="out"
-            animate="in"
-            variants={getVariant(index, 0.25)}
-            duration="0.5s"
-            onClick={() => {
-              dispatch(changeGameId(index + 4))
-              menuItemClicked()
-            }}
-          >
-            <HoverVideoPlayer
-              videoSrc={item.vid}
-              sizingMode="container"
-              style={{
-                width: "100%",
-                height: "80%",
-              }}
-              pausedOverlay={
-                <img className="pause-overlay" src={item.img} alt={item.name} />
-              }
-
-            />
-          </motion.div>
-        ))}
-      </div> */}
     </div >
 
 

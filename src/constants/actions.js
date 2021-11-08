@@ -1,5 +1,7 @@
 export const GAME_CHANGED = "gameChanged";
 export const MATCH_CHANGED = "MATCH_CHANGED"
+export const SERIE_CHANGED = "SERIE_CHANGED"
+export const PAGE_CHANGED = "PAGE_CHANGED"
 
 export const GET_TEAMS = "getTeams";
 
