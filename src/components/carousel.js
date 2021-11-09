@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { colors, gameColorList, gameLogoList, gameShadowList } from "../constants/constants";
 import { getMatchesModel } from "../helper/matchesHelper";
 import "../scss/components/carousel.scss"
-import { changeMatchId } from "../redux/actions/changeMachId";
+import { changeMatchId } from "../redux/actions/changeId";
 
 
 const Carousel = forwardRef((props, ref) => {

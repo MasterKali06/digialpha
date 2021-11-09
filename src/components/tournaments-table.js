@@ -8,7 +8,7 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { changeSerieId } from "../redux/actions/changeSerieId";
+import { changeSerieId } from "../redux/actions/changeId";
 
 
 const Table = ({ gameId, tourList, state, type, year }) => {

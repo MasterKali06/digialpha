@@ -1,19 +1,17 @@
 import { combineReducers } from "redux";
-import matchIdReducer from "./matchIdReducer";
-import gameIdReducer from "./gameIdReducer"
 import { ongoingMatchesReducer, pastMatchesReducer, upcomingMatchesReducer } from "./getMatchesReducer";
 import getTeamsReducer from "./getTeamsReducer"
 import { ongoingSeriesReducer, pastSeriesReducer, upcomingSeriesReducer } from "./getSeriesReducer";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
-import pageIdReducer from "./pageIdReducer";
-import serieIdReducer from "./serieIdReducer";
+import { gameIdReducer, pageIdReducer, serieIdReducer, matchIdReducer } from "./idReducer";
+import { pastTourStateReducer, runningTourStateReducer, upcomingTourStateReducer } from "./tournamentReducer";
 
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['gameId', 'pastSeries', 'ongoingSeries', 'upcomingSeries']
+    whitelist: ['gameId', 'upcomingSerieState', 'runningSerieState', 'pastSerieState']
 }
 
 const reducers = combineReducers({
@@ -27,7 +25,10 @@ const reducers = combineReducers({
     pastMatches: pastMatchesReducer,
     upcomingSeries: upcomingSeriesReducer,
     ongoingSeries: ongoingSeriesReducer,
-    pastSeries: pastSeriesReducer
+    pastSeries: pastSeriesReducer,
+    upcomingSerieState: upcomingTourStateReducer,
+    runningSerieState: runningTourStateReducer,
+    pastSerieState: pastTourStateReducer
 })
 
 export default persistReducer(persistConfig, reducers);

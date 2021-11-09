@@ -9,37 +9,52 @@ import { FadeLoader } from "react-spinners";
 import { arrangeToursByTier } from "../helper/tournametsHelper";
 import Table from "../components/tournaments-table";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
-import { changePageId } from "../redux/actions/changePageId";
+import { changePageId } from "../redux/actions/changeId";
+import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../redux/actions/tourPersistState";
 
 const Tournaments = () => {
 
     const gameId = useSelector(state => state.gameId)
+
+    const runningDispatched = useSelector(state => state.runningSerieState)
+    const upcomingDispatched = useSelector(state => state.upcomingSerieState)
+    const pastDispatched = useSelector(state => state.pastSerieState)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         const source = axios.CancelToken.source()
 
-        dispatch(getSeries(gameId, "running", source))
-        dispatch(getSeries(gameId, "upcoming", source))
+        if (!runningDispatched) {
+            dispatch(getSeries(gameId, "running", source))
+            dispatch(changeRunningTourState(true))
+        }
+        if (!upcomingDispatched) {
+            dispatch(getSeries(gameId, "upcoming", source))
+            dispatch(changeUpcomingTourState(true))
+        }
         dispatch(changePageId(2))
 
         return () => {
             source.cancel()
         }
-    }, [dispatch, gameId])
+    }, [dispatch, gameId, runningDispatched, upcomingDispatched])
 
 
     const [year, setYear] = useState(2021)
     useEffect(() => {
         const source = axios.CancelToken.source()
 
-        dispatch(getSeries(gameId, "past", source, year))
+
+        if (!pastDispatched) {
+            dispatch(getSeries(gameId, "past", source, year))
+            dispatch(changePastTourState(true))
+        }
 
         return () => {
             source.cancel()
         }
-    }, [year, dispatch, gameId])
+    }, [year, dispatch, gameId, pastDispatched])
 
 
     return (

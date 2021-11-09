@@ -5,7 +5,7 @@ const getOngoingSeries = () => ({
     type: actions.GET_ONGOING_SERIES
 })
 
-const getOngoingSeriesSuccess = matches => ({
+export const getOngoingSeriesSuccess = matches => ({
     type: actions.GET_ONGOING_SERIES_SUCCESS,
     payload: matches
 })
@@ -19,7 +19,7 @@ const getUpcomingSeries = () => ({
     type: actions.GET_UPCOMING_SERIES,
 })
 
-const getUpcomingSeriesSuccess = matches => ({
+export const getUpcomingSeriesSuccess = matches => ({
     type: actions.GET_UPCOMING_SERIES_SUCCESS,
     payload: matches
 })
@@ -37,7 +37,7 @@ const getPastSeries = matches => ({
 
 })
 
-const getPastSeriesSuccess = matches => ({
+export const getPastSeriesSuccess = matches => ({
     type: actions.GET_PAST_SERIES_SUCCESS,
     payload: matches
 })

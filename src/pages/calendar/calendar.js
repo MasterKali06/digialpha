@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getMatches } from "../../redux/actions/getMatches";
 import CalendarLive from "./calendar-live";
 import axios from "axios"
-import { changePageId } from "../../redux/actions/changePageId";
+import { changePageId } from "../../redux/actions/changeId";
 
 function Calendar() {
 

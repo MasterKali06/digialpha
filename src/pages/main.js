@@ -23,8 +23,9 @@ import fifaImg from '../assets/images/fifa-img.jpg';
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { changeGameId } from "../redux/actions/changeGameId";
-import { changePageId } from "../redux/actions/changePageId";
+import { changeGameId, changePageId } from "../redux/actions/changeId";
+import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../redux/actions/tourPersistState";
+import { getUpcomingSeriesSuccess, getOngoingSeriesSuccess, getPastSeriesSuccess } from "../redux/actions/getSeries";
 
 const Main = () => {
 
@@ -37,6 +38,12 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(changePageId(1))
+    dispatch(changePastTourState(false))
+    dispatch(changeRunningTourState(false))
+    dispatch(changeUpcomingTourState(false))
+    dispatch(getUpcomingSeriesSuccess([]))
+    dispatch(getPastSeriesSuccess([]))
+    dispatch(getOngoingSeriesSuccess([]))
   }, [dispatch])
 
   const getVariant = (index) => {

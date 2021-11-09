@@ -5,7 +5,7 @@ import { calculateTimeLeft, getMatchesModel } from "../helper/matchesHelper";
 import "../scss/components/match-card.scss"
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
-import { changeMatchId } from "../redux/actions/changeMachId";
+import { changeMatchId } from "../redux/actions/changeId";
 
 const MatchCard = (props) => {
 

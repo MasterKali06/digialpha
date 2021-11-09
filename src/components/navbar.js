@@ -9,7 +9,7 @@ import { IoNewspaperOutline } from "react-icons/io5"
 import { useState } from 'react';
 import { colors, gameColorList, gameLogoList, gameShadowList } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { changePageId } from '../redux/actions/changePageId';
+import { changePageId } from '../redux/actions/changeId';
 
 
 
