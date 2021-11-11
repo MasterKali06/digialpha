@@ -4,6 +4,7 @@ import { getMatches } from "../../redux/actions/getMatches";
 import CalendarLive from "./calendar-live";
 import axios from "axios"
 import { changePageId } from "../../redux/actions/changeId";
+import { useHistory } from "react-router";
 
 function Calendar() {
 
@@ -11,6 +12,8 @@ function Calendar() {
 
   // dispatching live matches
   const dispatch = useDispatch()
+  const history = useHistory()
+
   useEffect(() => {
     let source = axios.CancelToken.source();
 
@@ -18,10 +21,10 @@ function Calendar() {
     dispatch(getMatches(gameId, "running", source))
     dispatch(changePageId(1))
 
-
     return () => {
       source.cancel()
     }
+
 
   }, [gameId, dispatch])
 

@@ -22,6 +22,18 @@ const Tournaments = () => {
 
     const dispatch = useDispatch()
 
+
+    // TODO: check this closing tab
+    useEffect(() => {
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault()
+            dispatch(changePastTourState(false))
+            dispatch(changeRunningTourState(false))
+            dispatch(changeUpcomingTourState(false))
+        })
+
+    }, [])
+
     useEffect(() => {
         const source = axios.CancelToken.source()
 
@@ -38,7 +50,7 @@ const Tournaments = () => {
         return () => {
             source.cancel()
         }
-    }, [dispatch, gameId, runningDispatched, upcomingDispatched])
+    }, [dispatch, gameId])
 
 
     const [year, setYear] = useState(2021)
@@ -54,7 +66,7 @@ const Tournaments = () => {
         return () => {
             source.cancel()
         }
-    }, [year, dispatch, gameId, pastDispatched])
+    }, [year, dispatch, gameId])
 
 
     return (
@@ -78,7 +90,6 @@ const TournamentsUi = ({ gameId, year }) => {
     const tournaments = arrangeToursByTier(
         tabSelected === 0 ? past : tabSelected === 1 ? ongoing : upcoming
     )
-    console.log(tournaments)
 
 
     const onTabClicked = (index) => {
@@ -158,7 +169,6 @@ const TournamentsUi = ({ gameId, year }) => {
 
 
 const Header = ({ text, open, changeTableState }) => {
-    console.log(open)
     return (
 
         <div className="thead-tier">

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { requestSerie } from "../helper/request";
-import { getGroupRankings } from "../helper/tournametsHelper";
+import { generatePlayoffs, getGroupRankings } from "../helper/tournametsHelper";
 
 
 const Serie = () => {
@@ -28,32 +28,61 @@ const Serie = () => {
     }
 
 
-    let playoffTags = [];
     // playoffs
+    let playoffs;
     if (serie) {
+        console.log(serie)
         const tours = serie.tournaments
         for (let i = 0; i < tours.length; i++) {
-            if (tours[i].name.includes("Playoffs")) {
-                const matches = tours[i].matches
-                matches.forEach(element => {
-                    if (element.status !== "canceled") {
-                        playoffTags.push(element.name)
-                    }
-                });
+            if (tours[i].name.toLowerCase().includes("playoffs")) {
+                playoffs = generatePlayoffs(tours[i])
+                break
             }
         }
     }
+
+
     return (
         <>
             <div>
-                {
-                    playoffTags.map(tag => (
-                        <div>{tag}</div>
-                    ))
-                }
+                <PlayOffs playoffs={playoffs} />
             </div>
         </>
     )
 }
 
 export default Serie;
+
+
+const PlayOffs = ({ playoffs }) => {
+
+
+    const generatePlayoffUi = (round) => {
+        return (
+            <div style={{ padding: "10px" }}>
+                {
+                    round &&
+                    round.map(match => (
+                        <h6>{match.name}</h6>
+                    ))
+                }
+            </div>
+        )
+    }
+
+
+    return (
+        <>
+            {playoffs &&
+                <div style={{ display: "flex", overflow: "auto" }}>
+                    {generatePlayoffUi(playoffs.round64)}
+                    {generatePlayoffUi(playoffs.round32)}
+                    {generatePlayoffUi(playoffs.round16)}
+                    {generatePlayoffUi(playoffs.round8)}
+                    {generatePlayoffUi(playoffs.round4)}
+                    {generatePlayoffUi(playoffs.final)}
+                </div>}
+        </>
+    )
+
+}

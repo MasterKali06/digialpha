@@ -2,26 +2,21 @@ import { useSelector } from "react-redux"
 import { ClipLoader } from "react-spinners"
 import { gameColorList } from "../constants/constants"
 import { formatImage } from "../helper/commonHelper"
+import { formatDate } from "../helper/tournametsHelper"
 import "../scss/components/head-to-head.scss"
 
 const HeadToHead = ({ data, teamOne, teamTwo }) => {
 
     const gameId = useSelector(state => state.gameId)
-    const formatDate = (item) => {
-        const dateObj = new Date(parseInt(item.date))
-        return `${dateObj.getFullYear()}/${dateObj.getMonth() + 1}/${dateObj.getDay()}`
-    }
-
-
 
     const HthCard = () => (
         <table className="table-container">
             <thead>
                 <tr>
 
-                    <th>Series</th>
-                    <th>Date</th>
-                    <th>Result</th>
+                    <th className="th-1">Series</th>
+                    <th className="th-2">Date</th>
+                    <th className="th-3">Result</th>
                 </tr>
             </thead>
 
@@ -32,12 +27,12 @@ const HeadToHead = ({ data, teamOne, teamTwo }) => {
 
                     return (
                         <tr>
-                            <td className="table-tour">
+                            <td className="table-tour td-1">
                                 <img width="36px" height="36px" className="hth-serie-logo" src={img ? img : ""} alt=" " />
                                 {item.serie ? item.serie.name : ""}
                             </td>
-                            <td>{formatDate(item)}</td>
-                            <td>
+                            <td className="td-2">{formatDate(item.date)}</td>
+                            <td className="td-3">
                                 {teamOne === item.t1 ? item.r1 : item.r2} : {teamTwo === item.t2 ? item.r2 : item.r1}
                             </td>
 

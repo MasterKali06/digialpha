@@ -12,11 +12,30 @@
     height: fit-content;
     margin: 0 auto;
     display: table;
+    table-layout: fixed;
     padding: 0 0 8em 0;
+}
+
+.table-container .td-1, .table-container .th-1{
+    width: 60%;
+}
+
+.table-container .td-2, .table-container .th-2{
+    width: 25%;
+}
+
+.table-container .td-3, .table-container .th-3{
+    width: 15%;
 }
 
 .table-container th{
     color: var(--frost-blue-dark);
+    font-size: 15px;
+}
+
+.table-container td{
+    color: var(--dark-grey);
+    font-size: 13px;
 }
 
 .table-container tr:nth-child(odd) {

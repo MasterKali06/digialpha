@@ -41,7 +41,6 @@ export const arrangeToursByTier = (tours) => {
 
 export const formatDate = (epoch) => {
     if (epoch === "None") {
-        console.log("ok", epoch)
         return null
     }
 
@@ -109,12 +108,94 @@ const groupRankings = (group) => {
 
 export const generatePlayoffs = (tour) => {
     const matches = tour.matches
-    let sections = [];
 
-    matches.forEach(
-        match => {
-            if (match.status !== "canceled") {
+    let typeUpperLower = {
+        upper: [],
+        lower: [],
+        finals: []
+    }
+    let typeRound = {
+        round64: [],
+        round32: [],
+        round16: [],
+        round8: [],
+        round4: [],
+        final: []
+    }
 
+    let upperLower = false;
+    let round = false;
+
+    for (let i = 0; i < matches.length; i++) {
+        const match = matches[i]
+        if (match.status !== "canceled") {
+
+            if (tour.name.toLowerCase().includes("playoffs")) {
+
+                const name = match.name.toLowerCase()
+                if (name.includes("upper") || name.includes("lower")) {
+                    upperLower = true
+                    round = false
+                    break
+                } else {
+                    round = true
+                }
             }
-        })
+
+        }
+    }
+
+
+    for (let i = 0; i < matches.length; i++) {
+        const match = matches[i]
+        if (match.status !== "canceled") {
+
+            if (tour.name.toLowerCase().includes("playoffs")) {
+
+                const name = match.name.toLowerCase()
+
+                if (upperLower) {
+                    if (name.includes("lower")) {
+                        typeUpperLower.lower.push(match)
+                    }
+                    else if (name.includes("upper")) {
+                        typeUpperLower.upper.push(match)
+                    }
+                    else {
+                        typeUpperLower.finals.push(match)
+                    }
+                }
+
+                else if (round) {
+                    if (name.includes("round") || name.includes("final")) {
+
+                        if (name.includes("32")) {
+                            typeRound.round32.push(match)
+                        }
+                        else if (name.includes("16")) {
+                            typeRound.round16.push(match)
+                        }
+                        else if (name.includes("8") || name.includes("quarter")) {
+                            typeRound.round8.push(match)
+                        }
+                        else if (name.includes("4") || name.includes("semi")) {
+                            typeRound.round4.push(match)
+                        }
+                        else if (name.includes("final")) {
+                            typeRound.final.push(match)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log("upperLower", upperLower)
+    console.log("round", round)
+    console.log("typeUpperLower", typeUpperLower)
+    console.log("typeRound", typeRound)
+    if (upperLower) {
+        return typeUpperLower
+    } else {
+        return typeRound
+    }
 }
