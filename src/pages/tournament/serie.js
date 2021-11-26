@@ -34,7 +34,6 @@ const Serie = () => {
                     for (let i = 0; i < serie.tournaments.length; i++){
                         const curr = serie.tournaments[i]
                         try{
-                            console.log("trying to fetch data")
                             const data = await requestTournament(gameId, curr.id, source)
                             result.push(data)
                         }catch (err) {

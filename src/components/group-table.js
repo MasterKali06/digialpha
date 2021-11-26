@@ -20,7 +20,6 @@ const GroupTable = ({name, teams}) => {
                                 <tr>
                                     <td className="td-g1">{index + 1}.</td>
                                     <td className="td-g2">
-                                        
                                         <img src={formatImage(team.image)} alt=" " width="24px" height="24px"/>
                                         <h3>{team.name}</h3>
                                     </td>
