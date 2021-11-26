@@ -2,15 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getSeries } from "../redux/actions/getSeries";
-import { gameColorList } from "../constants/constants"
-import "../scss/pages/tournaments/tournaments.scss";
+import { getSeries } from "../../redux/actions/getSeries";
+import { gameColorList } from "../../constants/constants"
+import "../../scss/pages/tournaments/tournaments.scss";
 import { FadeLoader } from "react-spinners";
-import { arrangeToursByTier } from "../helper/tournametsHelper";
-import Table from "../components/tournaments-table";
+import { arrangeToursByTier } from "../../helper/tournametsHelper";
+import Table from "../../components/tournaments-table";
 import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
-import { changePageId } from "../redux/actions/changeId";
-import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../redux/actions/tourPersistState";
+import { changePageId } from "../../redux/actions/changeId";
+import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../../redux/actions/tourPersistState";
+import Layout from "../../layout/Layout";
+
 
 const Tournaments = () => {
 
@@ -70,10 +72,12 @@ const Tournaments = () => {
 
 
     return (
-        <TournamentsUi
-            gameId={gameId}
-            year={year}
-        />
+        <Layout>
+            <TournamentsUi
+                gameId={gameId}
+                year={year}
+            />
+        </Layout>
     )
 }
 
@@ -105,22 +109,10 @@ const TournamentsUi = ({ gameId, year }) => {
     const generateTable = (list, index, text) => {
         if (list.length > 0) {
 
-            let type;
-            switch (tabSelected) {
-                case 0:
-                    type = "past"
-                    break
-                case 1:
-                    type = "running"
-                    break
-                default:
-                    type = "upcoming"
-            }
-
             return (
                 <>
                     <Header text={text} open={state[index]} changeTableState={() => changeTableState(index)} />
-                    {<Table gameId={gameId} tourList={list} state={state[index]} type={type} year={year} />}
+                    {<Table gameId={gameId} tourList={list} state={state[index]} />}
                 </>
             )
         }

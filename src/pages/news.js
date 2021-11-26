@@ -1,11 +1,14 @@
 import React from "react";
+import Layout from "../layout/Layout";
 import "../scss/pages/news/news.scss";
 
 function News() {
     return (
-        <div >
+        <Layout>
+            <div className="news-body">
 
-        </div>
+            </div>
+        </Layout>
     );
 }
 

@@ -65,7 +65,7 @@ export const getSeries = (gameId, serieMode, source, year = null) => (dispatch) 
 
     dispatch(func.loading())
     axios.get(
-        `http://localhost:5000/series?game=${gameId}&year=${year}&serieMode=${serieMode}`,
+        `http://localhost:5000/series?game_id=${gameId}&year=${year}&type=${serieMode}`,
         { cancelToken: source.token }
     )
         .then(
@@ -75,5 +75,4 @@ export const getSeries = (gameId, serieMode, source, year = null) => (dispatch) 
 
             })
         .catch(err => dispatch(func.fail(err.message)))
-
 }

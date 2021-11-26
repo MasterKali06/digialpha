@@ -72,8 +72,6 @@ const Carousel = forwardRef((props, ref) => {
                 const current = getMatchesModel(item.content)
                 const alterImg = gameLogoList[current.gameId]
 
-                console.log(item.content.streams)
-
                 return (
                     <div key={current.id} className={className} onClick={() => onLiveCardClicked(idx)}>
 
@@ -96,7 +94,7 @@ const Carousel = forwardRef((props, ref) => {
                                 </div>
 
                                 <div className="live-result">
-                                    {current.result.substring(0, 1)}
+                                    {current.result[0].score}
                                 </div>
                             </div>
 
@@ -107,7 +105,7 @@ const Carousel = forwardRef((props, ref) => {
                                 </div>
 
                                 <div className="live-result">
-                                    {current.result.substring(2)}
+                                    {current.result[1].score}
                                 </div>
                             </div>
 
@@ -117,10 +115,10 @@ const Carousel = forwardRef((props, ref) => {
 
                         <div className="live-video">
                             {
-                                item.content.streams !== "None" ?
+                                item.content.streams_list.length > 0 ?
                                     <iframe
                                         className="live-iframe"
-                                        src={`${item.content.streams}&localhost`}
+                                        src={`${item.content.streams_list[0].url}&localhost`}
                                         frameBorder="0"
                                         allowFullScreen={true}
                                         scrolling="no"
@@ -132,10 +130,7 @@ const Carousel = forwardRef((props, ref) => {
                                     // no live stream
                                     <></>
                             }
-
                         </div>
-
-
                     </div>
                 )
             })}

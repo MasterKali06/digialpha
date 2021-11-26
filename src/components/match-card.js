@@ -6,6 +6,7 @@ import "../scss/components/match-card.scss"
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { changeMatchId } from "../redux/actions/changeId";
+import { formatTime } from "../helper/commonHelper";
 
 const MatchCard = (props) => {
 
@@ -15,13 +16,14 @@ const MatchCard = (props) => {
     const match = props.match
     const curr = getMatchesModel(match)
     const alterImg = gameLogoList[curr.gameId]
-    var date = new Date(parseInt(match.beginAt))
-    var time = `${date.getHours()}:${date.getMinutes()}`
+    var date = new Date(parseInt(match.begin_at))
 
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(match.beginAt));
+    var time = formatTime(date)
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(match.begin_at));
     useEffect(() => {
         const timer = setTimeout(() => {
-            setTimeLeft(calculateTimeLeft(match.beginAt));
+            setTimeLeft(calculateTimeLeft(match.begin_at));
         }, 1000);
 
         return () => clearTimeout(timer);
@@ -91,7 +93,7 @@ const MatchCard = (props) => {
                     <div className="match-tournament-title">{curr.tournament}</div>
                 </div>
 
-                <div className="match-type">{`Best of ${match.numberOfGames}`}</div>
+                <div className="match-type">{`Best of ${match.number_of_games}`}</div>
             </div>
 
             { /* team1 */}
@@ -106,7 +108,7 @@ const MatchCard = (props) => {
                 </div>
 
                 <div className="match-title">
-                    {curr.result.substring(0, 1)}
+                    {curr.result.length > 0 ? curr.result[0].score ? curr.result[0].score : 0 : 0}
                 </div>
             </div>
 
@@ -122,7 +124,7 @@ const MatchCard = (props) => {
                 </div>
 
                 <div className="match-title">
-                    {curr.result.substring(2)}
+                    {curr.result.length > 1 ? curr.result[1].score ? curr.result[1].score : 0 : 0}
                 </div>
             </div>
 

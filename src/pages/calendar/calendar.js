@@ -4,7 +4,7 @@ import { getMatches } from "../../redux/actions/getMatches";
 import CalendarLive from "./calendar-live";
 import axios from "axios"
 import { changePageId } from "../../redux/actions/changeId";
-import { useHistory } from "react-router";
+import Layout from "../../layout/Layout";
 
 function Calendar() {
 
@@ -12,7 +12,6 @@ function Calendar() {
 
   // dispatching live matches
   const dispatch = useDispatch()
-  const history = useHistory()
 
   useEffect(() => {
     let source = axios.CancelToken.source();
@@ -30,7 +29,9 @@ function Calendar() {
 
 
   return (
-    <CalendarLive />
+    <Layout>
+      <CalendarLive />
+    </Layout>
   );
 }
 

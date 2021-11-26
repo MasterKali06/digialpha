@@ -3,7 +3,7 @@
 
 .navbar{
     overflow: visible;
-    max-width: 80px;
+    width: 80px;
     height: 100vh;
     background: var(--first-dark);
     display: flex;
@@ -21,11 +21,6 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-}
-
-
-.page-item-container{
-    position: relative;
 }
 
 .page-item{

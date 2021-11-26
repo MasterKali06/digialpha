@@ -1,33 +1,44 @@
 import "../../scss/pages/calendar/calendar-matches.scss"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { getMatches } from "../../redux/actions/getMatches";
 import DatePicker from 'react-modern-calendar-datepicker';
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import { gameColorList } from "../../constants/constants";
-import { RiExchangeFundsFill } from "react-icons/ri";
+import { colors, gameColorList } from "../../constants/constants";
 import { ScaleLoader } from "react-spinners";
 import MatchCard from "../../components/match-card";
 import axios from "axios";
+import { BsArrow90DegLeft, BsCollection } from "react-icons/bs";
+import ToolTip from "../../layout/Tooltip"
 
+
+// TODO: we need to change the date state srtucture completely this is shitty
 const CalendarMatches = () => {
 
     // logic
     const gameId = useSelector(state => state.gameId)
 
-    let date = new Date()
+
+    let localDate = localStorage.getItem('matchDate')
+    let matchDate = JSON.parse(localDate)
+
+    let date = matchDate ? new Date(parseInt(matchDate.start)) : new Date()
     const today = {
         year: date.getFullYear(),
         month: date.getMonth() + 1,
         day: date.getDate()
     }
 
-    let epoch = date.getTime()
-    let offset = (date.getHours() * 3600) + (date.getMinutes() * 60) + date.getSeconds()
-    epoch -= (offset * 1000)
+    if (matchDate === null) {
+        console.log("we are here")
+        let epoch = date.getTime()
+        let offset = (date.getHours() * 3600) + (date.getMinutes() * 60) + date.getSeconds()
+        epoch -= (offset * 1000)
+        matchDate = { start: epoch, end: null }
+    }
 
-    const [start, setStart] = useState(epoch)
-    const [end, setEnd] = useState(null)
+    const [start, setStart] = useState(matchDate.start)
+    const [end, setEnd] = useState(matchDate.end)
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -43,13 +54,10 @@ const CalendarMatches = () => {
 
 
     const onTimeChange = (epoch) => {
-        if (epoch.start) {
-            setStart(epoch.start)
-            setEnd(epoch.end)
-        } else {
-            setStart(epoch)
-            setEnd(null)
-        }
+        setStart(epoch.start)
+        setEnd(epoch.end)
+        const epochString = JSON.stringify(epoch)
+        localStorage.setItem('matchDate', epochString)
     }
 
     return (
@@ -71,7 +79,7 @@ const CalendarMatchesUi = (props) => {
 
     var matches = past.matches.concat(upcoming.matches)
 
-    matches.sort((a, b) => b.beginAt - a.beginAt)
+    matches.sort((a, b) => b.begin_at - a.begin_at)
 
 
     const [selectedDay, setSelectedDay] = useState(props.today)
@@ -104,13 +112,15 @@ const CalendarMatchesUi = (props) => {
             }
         }
 
-        console.log(rangeMatches)
     }
 
 
     const formatSelectedDay = () => {
         var date = new Date(selectedDay["year"], selectedDay["month"] - 1, selectedDay["day"])
-        props.onTimeChange(date.getTime())
+        props.onTimeChange({
+            start: date.getTime(),
+            end: null
+        })
         var newDate = date.toString().split(" ")
         return `${newDate[1]} ${newDate[2]} ${newDate[3]}`
     }
@@ -143,17 +153,22 @@ const CalendarMatchesUi = (props) => {
             className="calendar-input" />
     )
 
-
+    /* 
+        * Ui
+    */
     return (
         <div className="matches-container">
 
-
             <div className="date-picker-container">
-                <RiExchangeFundsFill
-                    onClick={() => setRangePicker(!rangePicker)}
-                    className="calendar-change-btn"
-                    style={{ color: gameColorList[props.gameId] }}
-                />
+                
+                <ToolTip content={rangePicker ? "Switch to day picker" : "Switch to range picker"}> 
+                    <BsCollection
+                        onClick={() => setRangePicker(!rangePicker)}
+                        className="calendar-change-btn"
+                        style={{ color: gameColorList[props.gameId] }}
+                    />
+                </ToolTip>
+
 
                 <DatePicker
                     colorPrimary={gameColorList[props.gameId]}
@@ -161,6 +176,7 @@ const CalendarMatchesUi = (props) => {
                     onChange={rangePicker ? setSelectedRange : setSelectedDay}
                     calendarTodayClassName="calendar-today"
                     renderInput={renderInput}
+                    colorPrimaryLight={colors.frostBlueDark}
                     shouldHighlightWeekends
                 />
 
@@ -184,14 +200,14 @@ const CalendarMatchesUi = (props) => {
                                 <div className="range-matches-container">
                                     {rangeMatches ?
                                         rangeMatches.map(item => (
-                                            <>
+                                            <React.Fragment key={item.day}>
                                                 <div className="date-header">{item.date}</div>
                                                 <div className="range-matches-content">
                                                     {item.matches.map(match => (
                                                         <MatchCard match={match} />
                                                     ))}
                                                 </div>
-                                            </>
+                                            </React.Fragment>
                                         ))
                                         :
                                         <></>

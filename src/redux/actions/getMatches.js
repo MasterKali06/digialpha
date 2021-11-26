@@ -66,7 +66,7 @@ export const getMatches = (gameId, matchMode, source, start = null, end = null) 
 
     dispatch(func.loading())
     axios.get(
-        `http://localhost:5000/matches?game=${gameId}&start=${start}&end=${end}&matchMode=${matchMode}`,
+        `http://localhost:5000/matches?game_id=${gameId}&start=${start}&end=${end}&type=${matchMode}`,
         { cancelToken: source.token }
     )
         .then(

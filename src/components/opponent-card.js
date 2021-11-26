@@ -14,11 +14,12 @@ const OpponentCard = (props) => {
     let teamImg;
     var imgAvailable = false;
     if (team) {
-        imgAvailable = team.image.length > 0 && team.image !== "None";
+        imgAvailable = team.image;
         if (imgAvailable) {
             teamImg = `data:image/png;base64,${team.image}`
         }
     } else {
+        console.log(match.id)
         return <></>
     }
 
@@ -28,7 +29,12 @@ const OpponentCard = (props) => {
 
             <div className="opp-name">{team.name}</div>
 
-            <div className="opp-result">{teamNum ? match.result.substring(2) : match.result.substring(0, 1)}</div>
+            <div className="opp-result">
+                {match.results > 0 ?
+                    match.results[teamNum].score :
+                    0
+                }
+            </div>
         </div>
     )
 }

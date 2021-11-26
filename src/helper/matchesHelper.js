@@ -4,58 +4,61 @@ import { gameNameList } from "../constants/constants";
 
 export const getMatchesModel = (match) => {
 
-    let team1 = gameNameList[match.gameId];
+    const opponents = match.opponents
+    const serie = match.serie
+
+    let team1 = gameNameList[match.game_id];
     let team1Img;
 
-    let team2 = gameNameList[match.gameId];
+    let team2 = gameNameList[match.game_id];
     let team2Img;
 
-    let tournament = gameNameList[match.gameId];
+    let tournament = gameNameList[match.game_id];
     let tourImg;
 
-    if (match.opponents[0]) {
-        if (match.opponents[0] === "TBD") {
+    if (opponents[0]) {
+        if (opponents[0].name === "TBD") {
             team1 = "TBD"
         } else {
-            team1 = match.opponents[0].name
-            if (match.opponents[0].image.length > 0 && match.opponents[0].image !== "None") {
-                team1Img = `data:image/png;base64,${match.opponents[0].image}`
+            team1 = opponents[0].name
+            if (opponents[0].image) {
+                team1Img = `data:image/png;base64,${opponents[0].image.trim()}`
             }
         }
     }
 
-    if (match.opponents[1]) {
-        if (match.opponents[1] === "TBD") {
+    if (opponents[1]) {
+        if (opponents[1].name === "TBD") {
             team2 = "TBD"
         } else {
-            team2 = match.opponents[1].name
-            if (match.opponents[1].image.length > 0 && match.opponents[1].image !== "None") {
-                team2Img = `data:image/png;base64,${match.opponents[1].image}`
+            team2 = opponents[1].name
+            if (opponents[1].image) {
+                team2Img = `data:image/png;base64,${opponents[1].image.trim()}`
             }
         }
     }
 
 
 
-    if (match.serie) {
-        if (match.serie.name !== "None") {
-            tournament = match.serie.name
+    if (serie) {
+        if (serie.name) {
+            tournament = serie.name
         }
 
-        if (match.serie.image.length > 0) {
-            tourImg = `data:image/png;base64,${match.serie.image}`
+        if (serie.image) {
+            tourImg = `data:image/png;base64,${serie.image.trim()}`
         }
     }
 
 
 
-    const result = match.result
+    const result = match.results
     const tag = match.name
 
 
     return {
         id: match.id,
-        gameId: match.gameId,
+        gameId: match.game_id,
         tag: tag,
         team1: team1,
         img1: team1Img,

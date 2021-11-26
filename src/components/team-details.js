@@ -1,11 +1,12 @@
 import "../scss/components/team-details.scss"
 
-const TeamDetails = ({ team }) => {
+const TeamDetails = ({ stats }) => {
 
-    let stats;
-    if (team) {
-        stats = team.stats
-    }
+
+    // let stats;
+    // if (team) {
+    //     stats = team.stats
+    // }
 
     // change the card style
     const TeamCard = ({ prefix, suffix }) => (
@@ -33,7 +34,7 @@ const TeamDetails = ({ team }) => {
                     <TeamCard prefix={"win rate"} suffix={((stats.match_win / (stats.match_win + stats.match_lost)) * 100).toFixed(0)} />
                     <TeamCard prefix={"matches won"} suffix={stats.match_win} />
                     <TeamCard prefix={"matches lost"} suffix={stats.match_lost} />
-                    <TeamCard prefix={"played time"} suffix={(stats.length / 60).toFixed(2)} />
+                    {/* <TeamCard prefix={"played time"} suffix={(stats.length / 60).toFixed(2)} /> */}
                     { /* recent glories */}
                 </>
             }

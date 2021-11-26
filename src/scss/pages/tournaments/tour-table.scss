@@ -45,6 +45,7 @@
     text-align: left;
     display: table;
     table-layout: fixed;
+    padding: 0 0 1em 0;
     animation: fade-out 1s ease-in-out;
 
     @include responsive(tab-land){
@@ -56,8 +57,6 @@
 .t-hidden{
     display: none;
 }
-
-
 
 
 @keyframes fade-out {
@@ -73,6 +72,9 @@
 .tour-table td{
     color: var(--dark-grey);
     font-size: 14px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
 
     @include responsive(desktop){
         font-size: 12px;
@@ -81,7 +83,10 @@
 
 .tour-table th{
     font-size: 15px;
-
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    
     @include responsive(desktop){
         font-size: 13px;
     }
@@ -91,6 +96,7 @@
     width: 70%;
     overflow: hidden;
 }
+
 
 .th-1, .td-1{
     width: 35%;
@@ -125,7 +131,7 @@
     width: 10%;
 }
 
-.td-3, .td-4, .td-6, .td-7{
+.tour-table .td-3,.tour-table .td-4,.tour-table .td-6,.tour-table .td-7{
     font-size: 12px !important;
     @include responsive(desktop){
         font-size: 10px !important;

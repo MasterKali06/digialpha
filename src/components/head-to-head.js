@@ -8,9 +8,10 @@ import "../scss/components/head-to-head.scss"
 const HeadToHead = ({ data, teamOne, teamTwo }) => {
 
     const gameId = useSelector(state => state.gameId)
+    console.log(data)
 
     const HthCard = () => (
-        <table className="table-container">
+        <table className="head-to-head">
             <thead>
                 <tr>
 
@@ -21,13 +22,14 @@ const HeadToHead = ({ data, teamOne, teamTwo }) => {
             </thead>
 
             {
+                data.length > 0 &&
                 data.map(item => {
 
                     const img = item.serie ? formatImage(item.serie.img) : null
 
                     return (
                         <tr>
-                            <td className="table-tour td-1">
+                            <td className="td-1">
                                 <img width="36px" height="36px" className="hth-serie-logo" src={img ? img : ""} alt=" " />
                                 {item.serie ? item.serie.name : ""}
                             </td>

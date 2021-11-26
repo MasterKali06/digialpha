@@ -21,6 +21,7 @@
     align-items: center;
     justify-content: center;
     padding-top: 20px;
+    padding-right: 54px;
 }
 
 .Calendar{
@@ -67,7 +68,7 @@
 
 .calendar-input{
     width: 100%;
-    border-radius: 10%;
+    border-radius: 10px;
     text-align: center;
     z-index: 101;
     color: var(--second-light);
@@ -80,7 +81,7 @@
     box-shadow: 
         0 0 2px var(--dark-grey),
         0 0 4px var(--dark-grey),
-        0 0 8px var(--light-grey);
+        0 0 6px var(--light-grey);
 
 
     @include responsive(tab-land){
@@ -127,13 +128,9 @@
 }
 
 .calendar-change-btn {
-    width: 1.5rem;
-    height: 1.5rem;
-    padding-right: 10px;
-}
-
-.calendar-change-btn:hover{
-    transform: scale(1.1);
+    width: 24px;
+    height: 24px;
+    margin-right: 30px;
 }
 
 .range-calendar-container{

@@ -6,19 +6,19 @@ import { BsCalendarRange } from "react-icons/bs";
 import { CgEricsson } from "react-icons/cg"
 import { RiTeamFill } from "react-icons/ri"
 import { IoNewspaperOutline } from "react-icons/io5"
-import { useState } from 'react';
-import { colors, gameColorList, gameLogoList, gameShadowList } from '../constants/constants';
+import { colors, gameColorList, gameLogoList } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePageId } from '../redux/actions/changeId';
-
+import {useHistory} from "react-router-dom";
+import Tooltip from '../layout/Tooltip';
 
 
 function Navbar() {
 
-
     const gameId = useSelector(state => state.gameId)
     const selectedPage = useSelector(state => state.pageId)
     const dispatch = useDispatch();
+    const history = useHistory()
 
 
     const pages = [
@@ -38,22 +38,33 @@ function Navbar() {
         switch (pageId) {
             case 1:
                 return (
-                    <div className="page-item-container">
+                    <Tooltip content="Calendar" direction="top">
                         <BsCalendarRange className="page-item" style={style(1)} />
-                        <span data-tooltip="Calendar" ></span>
-                    </div>
+                    </Tooltip>
                 )
             case 2:
-                return <CgEricsson className="page-item" title="tournaments" style={style(2)} />
-
+                return (
+                    <Tooltip content="Tournaments" direction="top">
+                        <CgEricsson className="page-item" style={style(2)} />
+                    </Tooltip>
+                )
             case 3:
-                return <RiTeamFill className="page-item" title="teams" style={style(3)} />
-
+                return (
+                    <Tooltip content="Teams" direction="top">
+                        <RiTeamFill className="page-item"style={style(3)} />
+                    </Tooltip>
+                )
             case 4:
-                return <IoNewspaperOutline className="page-item" title="news" style={style(4)} />
+                return (
+                    <Tooltip content="News" direction="top">
+                        <IoNewspaperOutline className="page-item" style={style(4)} />
+                    </Tooltip>
+                )
 
             default:
-                return <BsCalendarRange className="page-item" style={style(1)} />
+                return (
+                        <BsCalendarRange className="page-item" style={style(1)} />
+                )
         }
     }
 
@@ -69,17 +80,22 @@ function Navbar() {
     }
 
     const setSelectedPage = (id) => {
-        console.log(id)
         dispatch(changePageId(id))
+    }
+
+    const mainMenuClicked = () => {
+        history.push("/")
     }
 
     return (
 
         <div className="navbar" style={navBoxStyle}>
-            <div className="image-holder">
-                <img src={gameLogoList[gameId]} width="48px" height="48px" alt="logo" />
+            
+            <div data-tip data-for='menu' className="image-holder">
+                <Tooltip content="Menu" direction="right" backgroundColor={colors.firstDark} color={colors.mainLight}>
+                    <img src={gameLogoList[gameId]} width="48px" height="48px" alt="logo" onClick={mainMenuClicked} />
+                </Tooltip>
             </div>
-
 
             <div className="navbar-box" >
                 {pages.map(page => (

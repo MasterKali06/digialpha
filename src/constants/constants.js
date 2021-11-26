@@ -7,6 +7,7 @@ import owLogo from "../assets/images/ow-logo.png"
 import codmwLogo from "../assets/images/codmw-logo.png"
 import fifaLogo from "../assets/images/fifa-logo.png"
 
+export const BASE_URL = "http://localhost:5000"
 
 
 export const colors = {

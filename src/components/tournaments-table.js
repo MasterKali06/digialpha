@@ -11,12 +11,12 @@ import { useHistory } from "react-router";
 import { changeSerieId } from "../redux/actions/changeId";
 
 
-const Table = ({ gameId, tourList, state, type, year }) => {
+const Table = ({ gameId, tourList, state }) => {
 
     const dispatch = useDispatch()
     const history = useHistory()
     const onSerieClicked = (id) => {
-        dispatch(changeSerieId({ id, type, year }))
+        dispatch(changeSerieId(id))
         history.push("./serie")
     }
 
@@ -38,17 +38,26 @@ const Table = ({ gameId, tourList, state, type, year }) => {
                     {
                         tourList.map(item => {
                             let winnerId = ""
-                            if (item.winnerId) {
-                                winnerId = item.winnerId.name
+                            if (item.winner_id) {
+                                winnerId = item.winner_id.name
                             }
 
-                            const start = formatDate(item.beginAt)
-                            const end = formatDate(item.endAt)
+                            const start = formatDate(item.begin_at)
+                            const end = formatDate(item.end_at)
+
+                            let prizepool;
+                            for (let i = 0; i < item.tournaments.length; i++) {
+                                const curr = item.tournaments[i]
+                                if (curr.prizepool) {
+                                    prizepool = curr.prizepool
+                                    break
+                                }
+                            }
 
                             return (
                                 <tr>
                                     <td className="td-1" onClick={() => onSerieClicked(item.id)}>
-                                        <div>
+                                        <div style={{display: "flex", alignItems: "center"}}>
                                             <img src={item.image ? formatImage(item.image) : ""} alt=" " width="36px" height="36px" style={{ marginRight: "15px" }} />
                                             <div className="td-tour-name">{item.name}</div>
                                         </div>
@@ -57,7 +66,7 @@ const Table = ({ gameId, tourList, state, type, year }) => {
                                     <td className="td-3">{start ? start : ""}</td>
                                     <td className="td-4">{end ? end : ""}</td>
                                     <td className="td-5">{winnerId ? winnerId : "TBD"}</td>
-                                    <td className="td-6">{item.prizePool !== "None" ? item.prizePool : ""}</td>
+                                    <td className="td-6">{prizepool}</td>
                                     <td className="td-7">{item.url !== "None" && <a href={item.url}>Visit Site</a>}</td>
                                 </tr>
                             )
@@ -74,11 +83,11 @@ const Table = ({ gameId, tourList, state, type, year }) => {
 
                     let winnerId = ""
                     if (item.winnerId) {
-                        winnerId = item.winnerId.name
+                        winnerId = item.winner_id.name
                     }
 
-                    const start = formatDate(item.beginAt)
-                    const end = formatDate(item.endAt)
+                    const start = formatDate(item.begin_at)
+                    const end = formatDate(item.end_at)
 
 
                     return (
@@ -99,10 +108,10 @@ const Table = ({ gameId, tourList, state, type, year }) => {
                                 </div>
 
                                 {
-                                    item.prizePool !== "None" &&
+                                    item.prizepool !== "None" &&
                                     <div className="prize">
                                         <FaRegMoneyBillAlt className="tour-icons" />
-                                        <h3>{item.prizePool}</h3>
+                                        <h3>{item.prizepool}</h3>
                                     </div>
 
                                 }
