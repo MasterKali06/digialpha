@@ -79,9 +79,9 @@
 }
 
 .small-logo{
-    width: 2.5rem;
-    height: 2.5rem;
-    padding-right: 10px;
+    max-width: 32px;
+    max-height: 32px;
+    margin-right: 10px;
 
     @include responsive(desktop){
         width: 1.5rem;

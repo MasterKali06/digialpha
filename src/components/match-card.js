@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { gameShadowList, gameLogoList } from "../constants/constants";
-import { calculateTimeLeft, getMatchesModel } from "../helper/matchesHelper";
+import { calculateTimeLeft, getMatchesModel, handleMatchResult } from "../helper/matchesHelper";
 import "../scss/components/match-card.scss"
 import { useHistory } from "react-router";
 import { useDispatch } from "react-redux";
 import { changeMatchId } from "../redux/actions/changeId";
 import { formatTime } from "../helper/commonHelper";
+
 
 const MatchCard = (props) => {
 
@@ -28,6 +29,7 @@ const MatchCard = (props) => {
 
         return () => clearTimeout(timer);
     })
+
 
     const timerComponents = [];
 
@@ -85,7 +87,7 @@ const MatchCard = (props) => {
 
                 <div className="match-tournament-detail">
                     <img
-                        className="small-logo"
+                        className="match-small-logo"
                         src={curr.tourImg ? curr.tourImg : alterImg}
                         alt={curr.id}
                     />
@@ -100,7 +102,7 @@ const MatchCard = (props) => {
             <div className="team-row">
                 <div className="team-detail">
                     <img
-                        className="small-logo"
+                        className="match-small-logo"
                         src={curr.img1 ? curr.img1 : alterImg}
                         alt={curr.id}
                     />
@@ -108,7 +110,10 @@ const MatchCard = (props) => {
                 </div>
 
                 <div className="match-title">
-                    {curr.result.length > 0 ? curr.result[0].score ? curr.result[0].score : 0 : 0}
+                    { handleMatchResult(
+                        match.opponents && match.opponents.length > 0 && match.opponents[0].id,
+                        match.results && match.results
+                    )}
                 </div>
             </div>
 
@@ -116,7 +121,7 @@ const MatchCard = (props) => {
             <div className="team-row">
                 <div className="team-detail">
                     <img
-                        className="small-logo"
+                        className="match-small-logo"
                         src={curr.img2 ? curr.img2 : alterImg}
                         alt={curr.id}
                     />
@@ -124,7 +129,10 @@ const MatchCard = (props) => {
                 </div>
 
                 <div className="match-title">
-                    {curr.result.length > 1 ? curr.result[1].score ? curr.result[1].score : 0 : 0}
+                    { handleMatchResult(
+                        match.opponents && match.opponents.length > 1 && match.opponents[1].id,
+                        match.results && match.results
+                    )}
                 </div>
             </div>
 

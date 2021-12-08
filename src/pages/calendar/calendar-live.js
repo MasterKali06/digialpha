@@ -1,11 +1,12 @@
 import { BsChevronLeft, BsChevronRight, BsCaretUp } from "react-icons/bs";
 import { useRef, useState } from "react"
 import Carousel from "../../components/carousel";
-import { gameColorList, gameShadowList } from "../../constants/constants";
+import { gameColorList, gameShadowList, PAGE_TRANSITION, PAGE_VARIANTS } from "../../constants/constants";
 import { useSelector } from "react-redux"
 import "../../scss/pages/calendar/calendar-live.scss";
 import CalendarMatches from "./calendar-matches"
 import { PropagateLoader } from "react-spinners"
+import { motion } from "framer-motion";
 
 
 const CalendarLive = () => {
@@ -43,8 +44,9 @@ const CalendarLive = () => {
 
     const mRef = useRef()
 
+
     return (
-        <div className="calendar-body">
+        <motion.div initial="out" animate="in" exit="out" variants={PAGE_VARIANTS} transition={PAGE_TRANSITION} className="calendar-body">
 
             <div className={matchesMenuOpen ? "live-header header-transit" : "live-header"} style={{
                 textShadow: [
@@ -94,7 +96,7 @@ const CalendarLive = () => {
 
 
             </div>
-        </div >
+        </motion.div>
     )
 }
 

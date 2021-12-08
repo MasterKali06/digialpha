@@ -30,7 +30,7 @@ const OpponentCard = (props) => {
             <div className="opp-name">{team.name}</div>
 
             <div className="opp-result">
-                {match.results > 0 ?
+                {match.results.length > 0 ?
                     match.results[teamNum].score :
                     0
                 }

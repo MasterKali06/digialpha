@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getSeries } from "../../redux/actions/getSeries";
-import { gameColorList } from "../../constants/constants"
+import { gameColorList, PAGE_TRANSITION, PAGE_VARIANTS } from "../../constants/constants"
 import "../../scss/pages/tournaments/tournaments.scss";
 import { FadeLoader } from "react-spinners";
 import { arrangeToursByTier } from "../../helper/tournametsHelper";
@@ -12,6 +12,7 @@ import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { changePageId } from "../../redux/actions/changeId";
 import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../../redux/actions/tourPersistState";
 import Layout from "../../layout/Layout";
+import { motion } from "framer-motion";
 
 
 const Tournaments = () => {
@@ -114,7 +115,7 @@ const TournamentsUi = ({ gameId, year }) => {
                     <Header text={text} open={state[index]} changeTableState={() => changeTableState(index)} />
                     {<Table gameId={gameId} tourList={list} state={state[index]} />}
                 </>
-            )
+                )
         }
     }
 
@@ -129,7 +130,7 @@ const TournamentsUi = ({ gameId, year }) => {
     }
 
     return (
-        <div className="tour-body">
+        <motion.div initial="out" animate="in" exit="out" variants={PAGE_VARIANTS} transition={PAGE_TRANSITION} className="tour-body">
             <div className="tour-tabs">
                 {generateTab(0, "Past")}
                 {generateTab(1, "Running")}
@@ -155,7 +156,7 @@ const TournamentsUi = ({ gameId, year }) => {
                         }
                     </>
             }
-        </div>
+        </motion.div>
     );
 }
 

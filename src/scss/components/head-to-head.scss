@@ -1,7 +1,7 @@
 @import "./mixin.scss";
 
 .hth-body{
-    width: 50%;
+    width: 100%;
     // height: fit-content;
     color: var(--second-light);
 }
@@ -16,7 +16,7 @@
     padding: 0 0 8em 0;
 }
 
-.head-to-head.td-1, .head-to-head .th-1{
+.head-to-head .td-1, .head-to-head .th-1{
     width: 60%;
 }
 

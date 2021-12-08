@@ -1,11 +1,12 @@
 import Navbar from "../components/navbar";
+import { colors } from "../constants/constants";
 
 
 const Layout = ({children}) => {
 
     return(
         <div style={{
-            display: "flex", backgroundColor: "#20242b"
+            display: "flex", backgroundColor: colors.secondDark
         }}>
             <Navbar></Navbar>
             { children }

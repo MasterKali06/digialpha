@@ -8,13 +8,22 @@ import { SyncLoader } from "react-spinners";
 import { gameColorList, gameLogoList } from "../../constants/constants";
 import axios from "axios";
 import TeamDetails from "../../components/team-details";
-import HeadToHead from "../../components/head-to-head";
+import HeadToHead, { HthBar } from "../../components/head-to-head";
 import Layout from "../../layout/Layout"
+import MasterPieChart from "../../components/pie-chart";
+import SerieMenuButton from "../../components/serie-menu-button";
+import config from "../../assets/esc-particles.json"
+
+// images
+import CSGO from "../../assets/images/csgo-match.jpg"
+import Particles from "react-tsparticles";
+
 
 const Match = () => {
 
     var matchId = useSelector(state => state.matchId)
     var gameId = useSelector(state => state.gameId)
+
 
     let mode;
     switch (matchId.status) {
@@ -34,6 +43,8 @@ const Match = () => {
     const [teams, setTeams] = useState(null)
     const [vidToPlay, setVidToPlay] = useState(null)
     const [headToHead, setHeadToHead] = useState(null)
+    const [tabContainer, setTabContainer] = useState(1)
+
     const alterImg = gameLogoList[gameId]
 
 
@@ -52,7 +63,7 @@ const Match = () => {
                         if (data.archive.videos.length > 0) {
                             setVidToPlay({
                                 idx: 1,
-                                video: data.archive.videos[0]
+                                video: data.archive.videos[0].url
                             })
                         }
                     }
@@ -64,7 +75,7 @@ const Match = () => {
                         { t1: data.opponents[0].id, t2: data.opponents[1].id }
                     )
 
-                    console.log("match, teams and video set")
+                    // console.log("match, teams and video set")
 
                 }
             })
@@ -152,7 +163,11 @@ const Match = () => {
         }
     }
 
-    const VideoContent = () => (
+    const VideoContent = () => {
+        
+        console.log("vidToPlay", vidToPlay)
+
+        return (
         <div className="video-content-box">
             {
 
@@ -170,7 +185,8 @@ const Match = () => {
                         :
                         // archive not available
                         <div className="no-archive">
-                            Sorry! No archive...
+                            {/* <img src={CSGO} alt=" " className="no-archive-img" /> */}
+                            <h3>Sorry! No Archive Availabe...</h3>
                         </div>
 
                     :
@@ -187,12 +203,12 @@ const Match = () => {
                         :
                         // no live stream
                         <div className="no-archive">
-                            Sorry! No Live Stream...
+                            {/* <img src={CSGO} alt=" " className="no-archive-img" /> */}
                         </div>
 
             }
         </div>
-    )
+    )}
 
     const GameButtons = () => (
         <>
@@ -216,15 +232,16 @@ const Match = () => {
         <Layout>
             {
                 match ?
+                <>
+                    <Particles className="particles__container" params={config} />
                     <div className="match-container">
-
+                        
                         <div className="match-tour">
                             {/* logo and serie name goes here */}
                             <img className="tour-logo" src={imgAvailable ? tourImg : alterImg} alt=" " />
                             <div className="tour-name">{match ? match.serie ? match.serie.name : "" : ""}</div>
-
-
                         </div>
+
                         <div className="video-container">
                             <div className="opponent-details">
                                 <OpponentCard team={{ num: 0, detail: teamOne }} match={match} />
@@ -239,7 +256,6 @@ const Match = () => {
                                 <OpponentCard team={{ num: 1, detail: teamTwo }} match={match} />
                             </div>
                         </div>
-
 
                         {/* responsive */}
                         <div className="res-video-container">
@@ -259,18 +275,58 @@ const Match = () => {
 
                         {/* add divider maybe */}
 
-                        <div className="detail-container">
-                            <TeamDetails stats={match.stats ? match.stats.teamOneStat : null} />
-                            <HeadToHead data={headToHead} teamOne={teamOne ? teamOne.id : null} teamTwo={teamTwo ? teamTwo.id : null} />
-                            <TeamDetails stats={match.stats ? match.stats.teamTwoStat : null} />
+                        {/* head to head title */}
+                        <div className="headtohead-divider">
+                            <div className="shadow"></div>
                         </div>
 
+                        <div className="detail-container">
+                            <div style={{width: "25%"}}>
+                               <MasterPieChart stat={match.stats && match.stats.teamOneStat} />
+                            </div>
+                            
+                            {/* head to head */}
+                            <div style={{width: "50%"}}>
+                                <div className="headtohead-container">
+                                    <HthBar data={headToHead} teamOne={teamOne && teamOne.id}/>
+                                    <HeadToHead data={headToHead} teamOne={teamOne && teamOne.id} teamTwo={teamTwo && teamTwo.id } />
+                                </div>
+                            </div>
+                            
+                            <div style={{width: "25%"}}>
+                                <MasterPieChart stat={match.stats && match.stats.teamTwoStat} />
+                            </div>
+                        </div>
+
+
+                        <MatchTabContainer active={tabContainer} tabClicked={(idx) => setTabContainer(idx)}/>
                         <div className="tab-container">
+                            {tabContainer === 0 && 
+                                <div className="intab">
+                                    <MasterPieChart stat={match.stats && match.stats.teamOneStat} />
+                                </div>
+                            }
+
+                            {
+                                tabContainer === 1 &&
+                                <div className="intab">
+                                    <div className="headtohead-container">
+                                        <HthBar data={headToHead} teamOne={teamOne && teamOne.id}/>
+                                        <HeadToHead data={headToHead} teamOne={teamOne && teamOne.id} teamTwo={teamTwo && teamTwo.id } />
+                                    </div>
+                                </div>
+                            }
+                            
+                            {tabContainer === 2 && 
+                                <div className="intab">
+                                    <MasterPieChart stat={match.stats && match.stats.teamTwoStat} />
+                                </div>
+                            }
 
                         </div>
 
                     </div>
-
+                </>
                     // loading
                     :
                     <div className="loading-container">
@@ -278,9 +334,35 @@ const Match = () => {
                     </div>
 
             }
-
         </Layout>
 
+    )
+}
+
+
+const MatchTabContainer = ({active, tabClicked}) => {
+
+    return (
+        <div className="match-tab-menu">
+            <SerieMenuButton
+                title="team one details"
+                active={active === 0}
+                tabClicked={() => tabClicked(0)}
+            />
+
+            <SerieMenuButton
+                title="head to head"
+                active={active === 1}
+                tabClicked={() => tabClicked(1)}
+            />
+
+            <SerieMenuButton
+                title="team two details"
+                active={active === 2}
+                tabClicked={() => tabClicked(2)}
+            />
+
+        </div>
     )
 }
 

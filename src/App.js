@@ -1,5 +1,6 @@
 import "./App.scss";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 // pages
 import Main from "./pages/main";
@@ -13,18 +14,20 @@ import Serie from './pages/tournament/serie';
 
 const App = () => {
 
+  const location = useLocation()
+
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact component={Main} />
-        <Route path="/match" component={Match} />
-        <Route path="/serie" component={Serie} />
-        <Route path="/calendar" component={Calendar} />
-        <Route path="/tournaments" component={Tournaments} />
-        <Route path="/teams" component={Teams} />
-        <Route path="/news" component={News} />
-      </Switch>
-    </Router>
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.key}>
+          <Route path="/" exact component={Main} />
+          <Route path="/match" component={Match} />
+          <Route path="/serie" component={Serie} />
+          <Route path="/calendar" component={Calendar} />
+          <Route path="/tournaments" component={Tournaments} />
+          <Route path="/teams" component={Teams} />
+          <Route path="/news" component={News} />
+        </Switch>
+      </AnimatePresence>
   )
 }
 

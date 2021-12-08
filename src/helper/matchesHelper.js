@@ -52,7 +52,6 @@ export const getMatchesModel = (match) => {
 
 
 
-    const result = match.results
     const tag = match.name
 
 
@@ -65,8 +64,7 @@ export const getMatchesModel = (match) => {
         team2: team2,
         img2: team2Img,
         tournament: tournament,
-        tourImg: tourImg,
-        result: result
+        tourImg: tourImg
     }
 }
 
@@ -85,4 +83,17 @@ export const calculateTimeLeft = (time) => {
     }
 
     return timeLeft;
+}
+
+
+export const handleMatchResult = (id, results) => {
+
+    if (results && results.length > 1){
+        if (results[0].id === id){
+            return results[0].score
+        }else{
+            return results[1].score
+        }
+    }
+    return 0
 }

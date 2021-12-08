@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 import GroupTable from "../../components/group-table";
 import { requestSerie, requestTournament } from "../../helper/request";
 import Layout from "../../layout/Layout"
+import SerieMenu from "../../components/serie-menu";
+import OverviewComp from "./overview";
+
 
 const Serie = () => {
 
@@ -52,25 +55,81 @@ const Serie = () => {
 
     // 3 main components here
     // group table  --  group matches -- react flow (hierarchy tree)
-    console.log(tours)
+    
+    
+    
+    // playoff states
+    const [playoffs, setPlayoffs] = useState([])
+    
+    // group states
+    const [groups, setGroups] = useState([])
+
+    const [activeTab, setActiveTab] = useState(0)
+    const [allTeams, setAllTeams] = useState([])
+
+    useEffect (() => {
+        if (tours){
+            let teamsTemp = []
+            let teamIds = []
+            for (let i = 0; i < tours.length; i++){
+                const tour = tours[i]
+                let playoffsTemp = []
+                let groupsTemp = []
+
+                if (tour.details && tour.details.name){
+                    
+                    // TODO: other types should add here like play-in and so on
+
+                    if (tour.details.name === "playoff"){
+                        playoffsTemp.push(tour)
+                    }
+                    if (tour.details.name === "group"){
+                        groupsTemp.push(tour)
+                    }    
+                }
+
+                for (let i = 0; i < tour.teams.length; i++){
+                    const team = tour.teams[i]
+                    if (!teamIds.includes(team.id)){
+                        teamIds.push(team.id)
+                        teamsTemp.push(team)
+                    }
+                }
+                setPlayoffs(playoffsTemp)
+                setGroups(groupsTemp)
+            }
+            setAllTeams(teamsTemp)
+        }
+    }, [tours])
+
+
+    // on active tab changed -- 0 - overview | 1 - group | 2 - playoff
+    const activeTabChanged = (idx) => {
+
+    }
+    
 
     return (
         <Layout>
             <div className="serie-body">
+                <SerieMenu tournaments={tours} activeTabChanged={activeTabChanged} />
+                
+                {/* TODO: we need to add more options like play-in etc */}
                 {
-                    tours && 
-                        tours.map(tour => {
-                            
-                            if (tour.details && tour.details.name){
-                            if (tour.details.name.toLowerCase().includes("group")){
-                                return (
-                                    <GroupTable name={tour.details.name} teams={tour.details.teams} />
-                                )
-                            }
-                        }
-                        return <></>
-                    })
+                    activeTab === 0 &&
+                        <OverviewComp serie={serie} teams={allTeams}/>
                 }
+
+                {/* {
+                    activeTab === 1 &&
+                        <GroupsComp />
+                }
+
+                {
+                    activeTab === 2 &&
+                        <PlayoffsComp />
+                } */}
+
             </div>
         </Layout>
     )

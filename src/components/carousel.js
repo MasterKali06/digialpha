@@ -5,6 +5,7 @@ import { colors, gameColorList, gameLogoList, gameShadowList } from "../constant
 import { getMatchesModel } from "../helper/matchesHelper";
 import "../scss/components/carousel.scss"
 import { changeMatchId } from "../redux/actions/changeId";
+import { handleMatchResult } from "../helper/matchesHelper";
 
 
 const Carousel = forwardRef((props, ref) => {
@@ -94,7 +95,10 @@ const Carousel = forwardRef((props, ref) => {
                                 </div>
 
                                 <div className="live-result">
-                                    {current.result[0].score}
+                                    { handleMatchResult(
+                                        item.opponents && item.opponents.length > 0 && item.opponents[0].id,
+                                        item.results && item.results
+                                    )}
                                 </div>
                             </div>
 
@@ -105,7 +109,10 @@ const Carousel = forwardRef((props, ref) => {
                                 </div>
 
                                 <div className="live-result">
-                                    {current.result[1].score}
+                                    { handleMatchResult(
+                                        item.opponents && item.opponents.length > 1 && item.opponents[1].id,
+                                        item.results && item.results
+                                    )}
                                 </div>
                             </div>
 

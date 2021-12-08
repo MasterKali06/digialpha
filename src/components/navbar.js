@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePageId } from '../redux/actions/changeId';
 import {useHistory} from "react-router-dom";
 import Tooltip from '../layout/Tooltip';
+import MainLogo from "../assets/images/esports.png";
 
 
 function Navbar() {
@@ -107,7 +108,7 @@ function Navbar() {
             </div>
 
             <div className="image-holder">
-                <h1 style={{ fontSize: "14px", color: colors.mainLight }}> site logo </h1>
+                <img src={MainLogo} alt=" " className="main-logo" />
             </div>
         </div>
     )

@@ -11,8 +11,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url("../../assets/images/main_bg.jpg");
-  background-size: contain;
+  // background-image: url("../../assets/images/main_bg.jpg");
+  // background-size: contain;
 
   @include responsive(tab-land){
     overflow: scroll;     

@@ -26,6 +26,8 @@ import { useDispatch } from "react-redux";
 import { changeGameId, changePageId } from "../redux/actions/changeId";
 import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../redux/actions/tourPersistState";
 import { getUpcomingSeriesSuccess, getOngoingSeriesSuccess, getPastSeriesSuccess } from "../redux/actions/getSeries";
+import Particles from "react-tsparticles";
+import config from "../assets/normal-particles.json";
 
 const Main = () => {
 
@@ -51,12 +53,12 @@ const Main = () => {
       in: {
         left: "0%",
         transition: {
-          delay: index * 0.25,
+          delay: (index+1) * 0.3,
         },
       },
       out: {
         left: "1000%",
-      },
+      }
     };
   };
 
@@ -73,6 +75,7 @@ const Main = () => {
 
   return (
     < div className="menu-body" >
+      <Particles params={config} />
       <div className="menu-one">
         {menuItems.map((item, index) => (
           <motion.div
@@ -85,8 +88,7 @@ const Main = () => {
             onClick={() => {
               dispatch(changeGameId(index))
               menuItemClicked()
-            }
-            }
+            }}
           >
             <HoverVideoPlayer
               videoSrc={item.vid}

@@ -1,6 +1,24 @@
 @import "../../media-query.scss";
 @import "./mixins.scss";
 
+
+.particles__container {
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 0;
+}
+
+.particles__container canvas {
+    transition: 0.2s all ease-in-out;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+}
+
 .loading-container{
     background-image: linear-gradient(
         45deg,
@@ -17,31 +35,30 @@
 
 
 .match-container{
+    z-index: 10;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    background-image: linear-gradient(
-        45deg,
-        var(--main-dark),
-        var(--first-dark),
-        var(--second-dark)
-    );
+    // background-color: var(--second-dark);
 }
 
+
 .match-tour{
-    flex: 0.1;
-    padding: 10px;
+    width: 100%;
+    height: 10%;
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .tour-logo{
-    width: 42px;
-    height: 42px;
-    padding-right: 20px;
+    max-width: 72px;
+    max-height: 72px;
+    margin-right: 20px;
 }
 
 .tour-name{
@@ -52,9 +69,9 @@
 
 .video-container{
     width: 100%;
-    height: 40%;
+    height: 300px;
+    margin-top: 10px;
     display: flex;
-    justify-content: space-around;
     align-items: center;
 
     @include responsive(tab-land){
@@ -65,6 +82,7 @@
 .games{
     width: 10%;
     height: 100%;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -87,14 +105,16 @@
 
 .video-content-box{
     width: 90%;
-    height: 100%;
+    height: 90%;
     display: flex;
+    margin-top: 10px;
     justify-content: center;
     align-items: center;
     @include elevation();
 
     @include responsive(tab-land){
         width: 70%;
+        height: 300px;
     }
 
     @include responsive(tab-port){
@@ -121,7 +141,8 @@
 .res-video-container{
     display: none;
     @include responsive(tab-land){
-        flex: 0.4;
+        width: 100%;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -137,25 +158,114 @@
     justify-content: space-around;
 }
 
+.headtohead-divider{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+    position: relative;    
+}
+
+.headtohead-divider .shadow{
+    overflow: hidden;
+    height: 20px;
+}
+
+.headtohead-divider .shadow:after {
+    content: '';
+    display: block;
+    margin: -25px auto 0;
+    width: 100%;
+    height: 25px;
+    border-radius: 125px/12px;
+    box-shadow: 0 0 8px var(--game-color);
+}
+
+.headtohead-title{
+    font-size: 16px;
+    margin: 0 auto;
+    letter-spacing: 1.5px;
+    color: var(--dark-grey);
+    margin-top: -10px;
+    text-shadow: 2px 2px 4px var(--dark-grey);
+
+    @include responsive(tab-land){
+        display: none;
+    }
+}
+
 
 .detail-container{
     width: 100%;
     margin-top: 40px;
     height: fit-content;
     display: flex;
-    justify-content: space-around;
     align-items: flex-start;
+
+    @include responsive(tab-land){
+        display: none;
+    }
+}
+
+.headtohead-container{
+    width: 100%;
+    margin-top: 25px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
 }
 
 .no-archive{
-    color: var(--dark-grey);
-    font-size: 24px;
-    text-shadow: 0 0 5px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.no-archive-img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 40%;
+}
+
+.no-archive h3{
+    text-align: center;
+    font-size: 18px;
+    color: var(--light-grey);
+    text-shadow: 0 0 4px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 45%;
 }
 
 
 .tab-container{
+    display: none;
 
+    @include responsive(tab-land){
+        // animation: fade-out 1s 1s forwards;
+        display: block;
+        width: 100%;
+        height: fit-content;
+    }
 }
 
+.tab-container .intab{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.match-tab-menu{
+    display: none;
+
+    @include responsive(tab-land){
+        width: 100%;
+        display: flex;
+        height: fit-content;
+        justify-content: space-around;
+        align-items: center;
+    }
+}
 

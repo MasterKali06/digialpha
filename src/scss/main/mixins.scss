@@ -17,7 +17,6 @@
 }
 
 
-
 @keyframes menu-item-anim {
     25%{
         z-index: 10;
@@ -25,7 +24,7 @@
     }
 
     100% {
-        transform: scale(1.5, 1);
+        transform: scale(1.5, 1) skew(-10deg);
         z-index: 10;
         box-shadow: 0 0 10px black;
     }
@@ -39,6 +38,7 @@
     grid-template-columns: repeat(4, 25%);
     grid-template-rows: repeat(2, 50%);
     row-gap: 1%;
+    column-gap: 1%;
 
     @include responsive(tab-land){
         width: 75%;
