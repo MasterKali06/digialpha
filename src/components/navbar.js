@@ -9,7 +9,7 @@ import { IoNewspaperOutline } from "react-icons/io5"
 import { colors, gameColorList, gameLogoList } from '../constants/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { changePageId } from '../redux/actions/changeId';
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Tooltip from '../layout/Tooltip';
 import MainLogo from "../assets/images/esports.png";
 
@@ -52,7 +52,7 @@ function Navbar() {
             case 3:
                 return (
                     <Tooltip content="Teams" direction="top">
-                        <RiTeamFill className="page-item"style={style(3)} />
+                        <RiTeamFill className="page-item" style={style(3)} />
                     </Tooltip>
                 )
             case 4:
@@ -64,7 +64,7 @@ function Navbar() {
 
             default:
                 return (
-                        <BsCalendarRange className="page-item" style={style(1)} />
+                    <BsCalendarRange className="page-item" style={style(1)} />
                 )
         }
     }
@@ -91,7 +91,7 @@ function Navbar() {
     return (
 
         <div className="navbar" style={navBoxStyle}>
-            
+
             <div data-tip data-for='menu' className="image-holder">
                 <Tooltip content="Menu" direction="right" backgroundColor={colors.firstDark} color={colors.mainLight}>
                     <img src={gameLogoList[gameId]} width="48px" height="48px" alt="logo" onClick={mainMenuClicked} />

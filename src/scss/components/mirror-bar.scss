@@ -6,7 +6,6 @@
     display: flex;
     flex-direction: column;
     z-index: 100;
-    overflow-x: hidden;
     border-radius: 5px;
     box-shadow: 5px 5px 10px black;
 }
@@ -19,6 +18,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     background-color: transparent;
+    overflow: hidden;
 }
 
 .pc-fill{
@@ -29,11 +29,13 @@
     position: relative;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
+    overflow: hidden;
 }
 
 .pc-fill h1{
-    color: var(--game-color);
+    cursor: default;
+    color: var(--main-light);
+    font-weight: 200;
     font-size: 12px;
     margin-bottom: 5px;
 }
@@ -46,42 +48,36 @@
     align-items: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    background-color: var(--second-light);
+    background-color: var(--first-light);
 }
 
 .name-container h1{
+    cursor: default;
     font-size: 10px;
     text-align: center;
     color: var(--second-dark);
 }
 
 
-.pc-fill .curve{
+.wave-container{
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    bottom: 0;
+    height: 9px;
+    overflow: hidden;
+    line-height: 0;
 }
 
-.pc-fill .curve::before{
-    content: '';
+.wave-container svg{
+    position: relative;
     display: block;
-    position: absolute;
-    border-radius: 100% 50%;
-    width: 100%;
+    width: calc(100% + 1.3px);
     height: 100%;
-    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
-    transform: translate(85%, 60%);
 }
 
-.pc-fill .curve::after{
-    content: '';
-    display: block;
-    position: absolute;
-    border-radius: 100% 50%;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
-    z-index: -1;
-    transform: translate(-4%, 40%);
+.wave-container .shape-fill{
+    fill: var(--second-dark);
 }
+
+

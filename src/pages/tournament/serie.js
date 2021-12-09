@@ -116,8 +116,8 @@ const Serie = () => {
                 <SerieMenu tournaments={tours} activeTabChanged={activeTabChanged} />
 
                 <div className="mirror-test">
-                    <MirrorBar percent={72} name="og koosh" />
-                    <MirrorBar percent={28} name="team liquid" />
+                    <MirrorBar percent={50} name="og koosh" />
+                    <MirrorBar percent={50} name="team liquid" />
                 </div>
 
                 {/* TODO: we need to add more options like play-in etc */}

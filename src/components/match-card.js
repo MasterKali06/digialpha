@@ -54,7 +54,11 @@ const MatchCard = (props) => {
             opacity: 0
         },
         to: {
-            opacity: 1
+            opacity: 1,
+            transition: {
+                duration: 0.7,
+                delay: 0.3
+            }
         }
     }
 
@@ -71,9 +75,7 @@ const MatchCard = (props) => {
             variants={variants}
             initial="from"
             animate="to"
-            duration="1s"
-            whileTap={{ scale: 1 }}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
         >
             {
                 upcomingMatch ?
@@ -110,7 +112,7 @@ const MatchCard = (props) => {
                 </div>
 
                 <div className="match-title">
-                    { handleMatchResult(
+                    {handleMatchResult(
                         match.opponents && match.opponents.length > 0 && match.opponents[0].id,
                         match.results && match.results
                     )}
@@ -129,7 +131,7 @@ const MatchCard = (props) => {
                 </div>
 
                 <div className="match-title">
-                    { handleMatchResult(
+                    {handleMatchResult(
                         match.opponents && match.opponents.length > 1 && match.opponents[1].id,
                         match.results && match.results
                     )}

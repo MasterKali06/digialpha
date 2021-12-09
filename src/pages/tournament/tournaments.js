@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getSeries } from "../../redux/actions/getSeries";
-import { gameColorList, PAGE_TRANSITION, PAGE_VARIANTS } from "../../constants/constants"
+import { colors, gameColorList, PAGE_TRANSITION, PAGE_VARIANTS } from "../../constants/constants"
 import "../../scss/pages/tournaments/tournaments.scss";
 import { FadeLoader } from "react-spinners";
 import { arrangeToursByTier } from "../../helper/tournametsHelper";
@@ -115,7 +115,16 @@ const TournamentsUi = ({ gameId, year }) => {
                     <Header text={text} open={state[index]} changeTableState={() => changeTableState(index)} />
                     {<Table gameId={gameId} tourList={list} state={state[index]} />}
                 </>
-                )
+            )
+        }
+    }
+
+    const tabVariants = {
+        "in": {
+            color: colors.darkGrey,
+            transition: {
+                duration: 1
+            }
         }
     }
 
@@ -123,7 +132,6 @@ const TournamentsUi = ({ gameId, year }) => {
         return (
             <h1
                 className={tabSelected === index ? "tab-anim" : ""}
-                style={tabSelected === index ? { color: gameColorList[gameId] } : {}}
                 onClick={() => onTabClicked(index)}
             >{text}</h1>
         )

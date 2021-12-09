@@ -9,7 +9,6 @@
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    background: var(--main-dark);
 }
 
 
@@ -17,19 +16,23 @@
     position: absolute;
     background-color: var(--main-dark);
     z-index: 1000;
-    left: 80px;
-    right: 40px;
+    height: 80px;
+    box-shadow: 0 0 10px var(--second-dark);
     top: 0;
-    width: calc(100% - 120px);
+    width: 98%;
     display: flex;
     justify-content: center;
+    border: 0.2px solid var(--first-dark);
+    box-shadow: 10px 1px 10px #1f1f1f;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
     align-items: center;
 }
 
 .tour-tabs h1{
     padding: 15px 0;
-    margin-right: 5%;
-    margin-left: 5%;
+    margin-right: 60px;
+    margin-left: 60px;
     font-size: 20px;
     color: var(--dark-grey);
     cursor: pointer;
@@ -48,6 +51,7 @@
     color: var(--second-light) !important;
     font-size: 24px !important;
     text-shadow: 0 0 2px var(--light-grey);
+    transition: all 0.5s;
 
     @include responsive(tab-land){
         font-size: 21px;
