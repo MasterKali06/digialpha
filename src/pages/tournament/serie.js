@@ -7,6 +7,7 @@ import { requestSerie, requestTournament } from "../../helper/request";
 import Layout from "../../layout/Layout"
 import SerieMenu from "../../components/serie-menu";
 import OverviewComp from "./overview";
+import MirrorBar from "../../components/mirror-bar"
 
 
 const Serie = () => {
@@ -32,14 +33,14 @@ const Serie = () => {
 
         const fetchTours = async () => {
             let result = []
-            if (serie){
-                if (serie.tournaments){
-                    for (let i = 0; i < serie.tournaments.length; i++){
+            if (serie) {
+                if (serie.tournaments) {
+                    for (let i = 0; i < serie.tournaments.length; i++) {
                         const curr = serie.tournaments[i]
-                        try{
+                        try {
                             const data = await requestTournament(gameId, curr.id, source)
                             result.push(data)
-                        }catch (err) {
+                        } catch (err) {
                             console.log(err)
                         }
                     };
@@ -55,42 +56,42 @@ const Serie = () => {
 
     // 3 main components here
     // group table  --  group matches -- react flow (hierarchy tree)
-    
-    
-    
+
+
+
     // playoff states
     const [playoffs, setPlayoffs] = useState([])
-    
+
     // group states
     const [groups, setGroups] = useState([])
 
     const [activeTab, setActiveTab] = useState(0)
     const [allTeams, setAllTeams] = useState([])
 
-    useEffect (() => {
-        if (tours){
+    useEffect(() => {
+        if (tours) {
             let teamsTemp = []
             let teamIds = []
-            for (let i = 0; i < tours.length; i++){
+            for (let i = 0; i < tours.length; i++) {
                 const tour = tours[i]
                 let playoffsTemp = []
                 let groupsTemp = []
 
-                if (tour.details && tour.details.name){
-                    
+                if (tour.details && tour.details.name) {
+
                     // TODO: other types should add here like play-in and so on
 
-                    if (tour.details.name === "playoff"){
+                    if (tour.details.name === "playoff") {
                         playoffsTemp.push(tour)
                     }
-                    if (tour.details.name === "group"){
+                    if (tour.details.name === "group") {
                         groupsTemp.push(tour)
-                    }    
+                    }
                 }
 
-                for (let i = 0; i < tour.teams.length; i++){
+                for (let i = 0; i < tour.teams.length; i++) {
                     const team = tour.teams[i]
-                    if (!teamIds.includes(team.id)){
+                    if (!teamIds.includes(team.id)) {
                         teamIds.push(team.id)
                         teamsTemp.push(team)
                     }
@@ -107,17 +108,22 @@ const Serie = () => {
     const activeTabChanged = (idx) => {
 
     }
-    
+
 
     return (
         <Layout>
             <div className="serie-body">
                 <SerieMenu tournaments={tours} activeTabChanged={activeTabChanged} />
-                
+
+                <div className="mirror-test">
+                    <MirrorBar percent={72} name="og koosh" />
+                    <MirrorBar percent={28} name="team liquid" />
+                </div>
+
                 {/* TODO: we need to add more options like play-in etc */}
                 {
                     activeTab === 0 &&
-                        <OverviewComp serie={serie} teams={allTeams}/>
+                    <OverviewComp serie={serie} teams={allTeams} />
                 }
 
                 {/* {

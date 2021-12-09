@@ -160,8 +160,8 @@ const CalendarMatchesUi = (props) => {
         <div className="matches-container">
 
             <div className="date-picker-container">
-                
-                <ToolTip content={rangePicker ? "Switch to day picker" : "Switch to range picker"}> 
+
+                <ToolTip content={rangePicker ? "Switch to day picker" : "Switch to range picker"}>
                     <BsCollection
                         onClick={() => setRangePicker(!rangePicker)}
                         className="calendar-change-btn"
@@ -181,6 +181,8 @@ const CalendarMatchesUi = (props) => {
                 />
 
             </div>
+
+
 
 
             {

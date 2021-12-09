@@ -1,0 +1,87 @@
+
+
+.mb-container {
+    width: 60px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow-x: hidden;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px black;
+}
+
+.pc-container{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column-reverse;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: transparent;
+}
+
+.pc-fill{
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
+}
+
+.pc-fill h1{
+    color: var(--game-color);
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.name-container{
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: var(--second-light);
+}
+
+.name-container h1{
+    font-size: 10px;
+    text-align: center;
+    color: var(--second-dark);
+}
+
+
+.pc-fill .curve{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+}
+
+.pc-fill .curve::before{
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 100% 50%;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
+    transform: translate(85%, 60%);
+}
+
+.pc-fill .curve::after{
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 100% 50%;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(45deg, var(--frost-blue-light), var(--aura-purple));
+    z-index: -1;
+    transform: translate(-4%, 40%);
+}
