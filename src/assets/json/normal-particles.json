@@ -1,7 +1,4 @@
 {
-    "background": {
-      "color": "#181b20"
-    },
     "detectRetina": false,
     "fpsLimit": 30,
     "interactivity": {
@@ -10,6 +7,7 @@
         "resize": true
       }
     },
+    "fullscreen": false,
     "particles": {
       "color": {
         "value": "random"

@@ -11,7 +11,7 @@ const fillPercentVariant = {
         y: "0",
         transition: {
             duration: 1,
-            delay: 0.5
+            delay: 2
         }
     }
 }
@@ -24,7 +24,8 @@ const mbVariant = {
     "out": {
         scale: 1,
         transition: {
-            duration: 0.5
+            duration: 0.5,
+            delay: 1
         }
     },
     "hover": {

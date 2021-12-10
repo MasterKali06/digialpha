@@ -27,7 +27,8 @@ import { changeGameId, changePageId } from "../redux/actions/changeId";
 import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../redux/actions/tourPersistState";
 import { getUpcomingSeriesSuccess, getOngoingSeriesSuccess, getPastSeriesSuccess } from "../redux/actions/getSeries";
 import Particles from "react-tsparticles";
-import config from "../assets/normal-particles.json";
+import config from "../assets/json/normal-particles.json";
+
 
 const Main = () => {
 
@@ -53,7 +54,7 @@ const Main = () => {
       in: {
         left: "0%",
         transition: {
-          delay: (index+1) * 0.3,
+          delay: (index+1) * 0.3 + 4,
         },
       },
       out: {
@@ -73,10 +74,37 @@ const Main = () => {
     { id: 8, name: "fifa", vid: fifaVid, img: fifaImg },
   ];
 
+  const h3Variants = {
+    "in": { x: "-70%", opacity: 0 },
+    "out": { x: 0, opacity: 1, transition: { duration: 2, delay: 0.5, type: "spring" } }
+  }
+
+  const h5Variants = {
+    "in": { x: "-500%" },
+    "out": { x: 0, transition: { duration: 0.5, delay: 3, type: "spring" } }
+  }
+
+  const mainVariants = {
+    "in": { opacity: 0 },
+    "out": { opacity: 1, transition: { delay: 4 } }
+  }
+
   return (
-    < div className="menu-body" >
-      <Particles params={config} />
-      <div className="menu-one">
+    <div className="menu-body" >
+
+      <Particles options={config} className="particles-esc" />
+
+      <div className="main-header">
+        <motion.h3 initial="in" animate="out" variants={h3Variants}>
+          electronic sports calendar  
+        </motion.h3>
+
+        <motion.h5 initial="in" animate="out" variants={h5Variants}>
+          this is a good description of the site
+        </motion.h5>
+      </div>
+
+      <motion.div initial="in" animate="out" variants={mainVariants} className="menu">
         {menuItems.map((item, index) => (
           <motion.div
             key={item.id}
@@ -84,7 +112,6 @@ const Main = () => {
             initial="out"
             animate="in"
             variants={getVariant(index)}
-            duration="0.25s"
             onClick={() => {
               dispatch(changeGameId(index))
               menuItemClicked()
@@ -106,10 +133,8 @@ const Main = () => {
 
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div >
-
-
   );
 }
 

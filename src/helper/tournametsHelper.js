@@ -58,3 +58,23 @@ export const formatDate = (epoch) => {
 
     return `${year}-${month}-${day}`
 }
+
+
+export const getHeadToHeadWinRate = (data, teamOne) => {
+    let team1;
+    let team2;
+    if (data.teamOneWinCount.id == teamOne){
+        team1 = data.teamOneWinCount.count
+        team2 = data.teamTwoWinCount.count
+    }else{
+        team1 = data.teamTwoWinCount.count
+        team2 = data.teamOneWinCount.count
+    }
+
+    const total = team1 + team2
+
+    const teamOnePercent = team1 !== 0 ? team1 / total * 100 : 0
+    const teamTwoPercent = team2 !== 0 ? team2 / total * 100 : 0
+
+    return { teamOnePercent, teamTwoPercent }
+}

@@ -12,7 +12,7 @@ import { VscChevronDown, VscChevronUp } from "react-icons/vsc";
 import { changePageId } from "../../redux/actions/changeId";
 import { changePastTourState, changeRunningTourState, changeUpcomingTourState } from "../../redux/actions/tourPersistState";
 import Layout from "../../layout/Layout";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 const Tournaments = () => {
@@ -113,20 +113,12 @@ const TournamentsUi = ({ gameId, year }) => {
             return (
                 <>
                     <Header text={text} open={state[index]} changeTableState={() => changeTableState(index)} />
-                    {<Table gameId={gameId} tourList={list} state={state[index]} />}
+                    <Table gameId={gameId} tourList={list} state={state[index]} />
                 </>
             )
         }
     }
 
-    const tabVariants = {
-        "in": {
-            color: colors.darkGrey,
-            transition: {
-                duration: 1
-            }
-        }
-    }
 
     const generateTab = (index, text) => {
         return (
@@ -154,18 +146,26 @@ const TournamentsUi = ({ gameId, year }) => {
                     <>
                         {
                             tournaments &&
-                            <div className="table-container">
-                                {generateTable(tournaments.s, 0, "S Tier")}
-                                {generateTable(tournaments.a, 1, "A Tier")}
-                                {generateTable(tournaments.b, 2, "B Tier")}
-                                {generateTable(tournaments.c, 3, "C Tier")}
-                                {generateTable(tournaments.d, 4, "D Tier")}
-                            </div>
+                            <AnimatePresence exitBeforeEnter>
+                                <motion.div initial="in" exit="in" animate="out" variants={tableVariants} className="table-container">
+                                    {generateTable(tournaments.s, 0, "S Tier")}
+                                    {generateTable(tournaments.a, 1, "A Tier")}
+                                    {generateTable(tournaments.b, 2, "B Tier")}
+                                    {generateTable(tournaments.c, 3, "C Tier")}
+                                    {generateTable(tournaments.d, 4, "D Tier")}
+                                </motion.div>
+                            </AnimatePresence>
                         }
                     </>
             }
         </motion.div>
     );
+}
+
+
+const tableVariants = {
+    "in": { opacity: 0 },
+    "out": { opacity: 1, transition: { duration: 2 } }
 }
 
 

@@ -5,18 +5,24 @@ import OpponentCard from "../../components/opponent-card";
 import { requestHeadToHead, requestMatch, requestTeam } from "../../helper/request";
 import GameCard from "../../components/game-card";
 import { SyncLoader } from "react-spinners";
-import { gameColorList, gameLogoList } from "../../constants/constants";
+import { gameColorList, gameLogoList, PAGE_TRANSITION, PAGE_VARIANTS } from "../../constants/constants";
 import axios from "axios";
 import TeamDetails from "../../components/team-details";
 import HeadToHead, { HthBar } from "../../components/head-to-head";
 import Layout from "../../layout/Layout"
 import MasterPieChart from "../../components/pie-chart";
 import SerieMenuButton from "../../components/serie-menu-button";
-import config from "../../assets/esc-particles.json"
+import { motion } from "framer-motion";
+import MirrorBar from "../../components/mirror-bar"
+
+import SvgBg from "../../assets/bg.svg"
+
 
 // images
-import CSGO from "../../assets/images/csgo-match.jpg"
 import Particles from "react-tsparticles";
+import { getHeadToHeadWinRate } from "../../helper/tournametsHelper";
+import config from "../../assets/json/match-particles.json"
+
 
 
 const Match = () => {
@@ -225,6 +231,48 @@ const Match = () => {
         </>
     )
 
+    const MatchTour = () => (
+        <div className="match-tour">
+            <img className="tour-logo" src={imgAvailable ? tourImg : alterImg} alt=" " />
+            <div className="tour-name">{match ? match.serie ? match.serie.name : "" : ""}</div>
+        </div>
+    )
+
+    const OpponentDetail = ({num, team}) => (
+        <div className="opponent-details">
+            <OpponentCard team={{ num: num, detail: team }} match={match} />
+        </div>
+    )
+
+    // TODO: change div width to 100% when its tab-land
+    const HeadToHeadComp = () => {
+        if (!headToHead){
+            return <></>
+        }
+
+        const pc = getHeadToHeadWinRate(headToHead, teamOne)
+
+        return (
+            <div style={{width: "50%"}}>
+                <div className="headtohead-container">
+                    <div className="hth-bar">
+                        <MirrorBar percent={pc.teamOnePercent} name={teamOne && teamOne.name} />
+                        <MirrorBar percent={pc.teamTwoPercent} name={teamTwo && teamTwo.name} />
+                    </div>
+                    <HeadToHead data={headToHead} teamOne={teamOne && teamOne.id} teamTwo={teamTwo && teamTwo.id } />
+                </div>
+            </div>
+        )
+    }
+
+
+    const WaveBg = () => (
+        <div className="bg-co">
+                
+        </div>
+    )
+
+
     console.log(match)
 
 
@@ -234,46 +282,34 @@ const Match = () => {
                 match ?
                 <>
                     <Particles className="particles__container" params={config} />
-                    <div className="match-container">
+                    <WaveBg />
+
+                    <motion.div initial="out" exit="out" animate="in" variants={PAGE_VARIANTS} transition={PAGE_TRANSITION} className="match-container">
                         
-                        <div className="match-tour">
-                            {/* logo and serie name goes here */}
-                            <img className="tour-logo" src={imgAvailable ? tourImg : alterImg} alt=" " />
-                            <div className="tour-name">{match ? match.serie ? match.serie.name : "" : ""}</div>
-                        </div>
+                        <MatchTour />
 
                         <div className="video-container">
-                            <div className="opponent-details">
-                                <OpponentCard team={{ num: 0, detail: teamOne }} match={match} />
-                            </div>
+                            <OpponentDetail num={0} team={teamOne} />
 
                             <div className="video-content">
                                 <GameButtons />
                                 <VideoContent />
                             </div>
 
-                            <div className="opponent-details">
-                                <OpponentCard team={{ num: 1, detail: teamTwo }} match={match} />
-                            </div>
+                            <OpponentDetail num={1} team={teamTwo} />
                         </div>
 
-                        {/* responsive */}
+                        {/* video container responsive */}
                         <div className="res-video-container">
                             <GameButtons />
                             <VideoContent />
 
                             <div className="res-opp">
-                                <div className="opponent-details">
-                                    <OpponentCard team={{ num: 0, detail: teamOne }} match={match} />
-                                </div>
-
-                                <div className="opponent-details">
-                                    <OpponentCard team={{ num: 1, detail: teamTwo }} match={match} />
-                                </div>
+                                <OpponentDetail num={0} team={teamOne} />
+                                <OpponentDetail num={1} team={teamTwo} />
                             </div>
                         </div>
 
-                        {/* add divider maybe */}
 
                         {/* head to head title */}
                         <div className="headtohead-divider">
@@ -285,13 +321,7 @@ const Match = () => {
                                <MasterPieChart stat={match.stats && match.stats.teamOneStat} />
                             </div>
                             
-                            {/* head to head */}
-                            <div style={{width: "50%"}}>
-                                <div className="headtohead-container">
-                                    <HthBar data={headToHead} teamOne={teamOne && teamOne.id}/>
-                                    <HeadToHead data={headToHead} teamOne={teamOne && teamOne.id} teamTwo={teamTwo && teamTwo.id } />
-                                </div>
-                            </div>
+                            <HeadToHeadComp />
                             
                             <div style={{width: "25%"}}>
                                 <MasterPieChart stat={match.stats && match.stats.teamTwoStat} />
@@ -310,10 +340,7 @@ const Match = () => {
                             {
                                 tabContainer === 1 &&
                                 <div className="intab">
-                                    <div className="headtohead-container">
-                                        <HthBar data={headToHead} teamOne={teamOne && teamOne.id}/>
-                                        <HeadToHead data={headToHead} teamOne={teamOne && teamOne.id} teamTwo={teamTwo && teamTwo.id } />
-                                    </div>
+                                    <HeadToHeadComp />
                                 </div>
                             }
                             
@@ -325,7 +352,7 @@ const Match = () => {
 
                         </div>
 
-                    </div>
+                    </motion.div>
                 </>
                     // loading
                     :

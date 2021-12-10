@@ -13,7 +13,7 @@
 
 
 .tour-tabs{
-    position: absolute;
+    position: fixed;
     background-color: var(--main-dark);
     z-index: 1000;
     height: 80px;
@@ -83,7 +83,7 @@
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin-top: 80px !important;    
+    margin-top: 100px !important;    
     height: fit-content;
 }
 
