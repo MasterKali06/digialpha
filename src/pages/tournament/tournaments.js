@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getSeries } from "../../redux/actions/getSeries";
@@ -91,11 +91,27 @@ const TournamentsUi = ({ gameId, year }) => {
 
     const [tabSelected, setSelectedTab] = useState(1)
     const [state, setState] = useState([true, true, true, true, true])
+    const tournamentsUpdated = useRef(false)
 
-    const tournaments = arrangeToursByTier(
-        tabSelected === 0 ? past : tabSelected === 1 ? ongoing : upcoming
-    )
+    const [tournaments, setTournaments] = useState(null)
+    useEffect(() => {
+        if (!tournamentsUpdated.current && past.series.length > 0 && ongoing.series.length > 0 && upcoming.series.length > 0)
+        {   
+            setTournaments({
+                past: arrangeToursByTier(past),
+                running: arrangeToursByTier(ongoing),
+                upcoming: arrangeToursByTier(upcoming)
+            })
+            tournamentsUpdated.current = true
+        }
+    }, [past, ongoing, upcoming])
 
+    let pastTours, ongoingTours, upcomingTours;
+    if (tournaments){
+        pastTours = tournaments.past
+        ongoingTours = tournaments.running
+        upcomingTours = tournaments.upcoming
+    }
 
     const onTabClicked = (index) => {
         setSelectedTab(index)
@@ -144,19 +160,40 @@ const TournamentsUi = ({ gameId, year }) => {
                     </div>
                     :
                     <>
-                        {
-                            tournaments &&
-                            <AnimatePresence exitBeforeEnter>
-                                <motion.div initial="in" exit="in" animate="out" variants={tableVariants} className="table-container">
-                                    {generateTable(tournaments.s, 0, "S Tier")}
-                                    {generateTable(tournaments.a, 1, "A Tier")}
-                                    {generateTable(tournaments.b, 2, "B Tier")}
-                                    {generateTable(tournaments.c, 3, "C Tier")}
-                                    {generateTable(tournaments.d, 4, "D Tier")}
+                        <AnimatePresence exitBeforeEnter>
+                            { pastTours && tabSelected === 0 &&
+                                <motion.div initial="in" exit="exit" animate="out" variants={tableVariants} className="table-container">
+                                    {generateTable(pastTours.s, 0, "S Tier")}
+                                    {generateTable(pastTours.a, 1, "A Tier")}
+                                    {generateTable(pastTours.b, 2, "B Tier")}
+                                    {generateTable(pastTours.c, 3, "C Tier")}
+                                    {generateTable(pastTours.d, 4, "D Tier")}
                                 </motion.div>
-                            </AnimatePresence>
-                        }
-                    </>
+                            }
+                        </AnimatePresence>
+                        <AnimatePresence exitBeforeEnter>
+                            { ongoingTours && tabSelected === 1 &&
+                                <motion.div initial="in" exit="exit" animate="out" variants={tableVariants} className="table-container">
+                                    {generateTable(ongoingTours.s, 0, "S Tier")}
+                                    {generateTable(ongoingTours.a, 1, "A Tier")}
+                                    {generateTable(ongoingTours.b, 2, "B Tier")}
+                                    {generateTable(ongoingTours.c, 3, "C Tier")}
+                                    {generateTable(ongoingTours.d, 4, "D Tier")}
+                                </motion.div>
+                            }
+                        </AnimatePresence>
+                        <AnimatePresence exitBeforeEnter>
+                            { upcomingTours && tabSelected === 2 &&
+                                <motion.div initial="in" exit="exit" animate="out" variants={tableVariants} className="table-container">
+                                    {generateTable(upcomingTours.s, 0, "S Tier")}
+                                    {generateTable(upcomingTours.a, 1, "A Tier")}
+                                    {generateTable(upcomingTours.b, 2, "B Tier")}
+                                    {generateTable(upcomingTours.c, 3, "C Tier")}
+                                    {generateTable(upcomingTours.d, 4, "D Tier")}
+                                </motion.div>
+                            }
+                        </AnimatePresence>
+                    </>   
             }
         </motion.div>
     );
@@ -164,14 +201,15 @@ const TournamentsUi = ({ gameId, year }) => {
 
 
 const tableVariants = {
-    "in": { opacity: 0 },
-    "out": { opacity: 1, transition: { duration: 2 } }
+    "in": { opacity: 0, transition: { duration: 0.5 } },
+    "out": { opacity: 1, transition: { duration: 0.5, delay: 0.5 } },
+    "exit": { opacity: 0, transition: { duration: 0.5 } },
 }
 
 
 const Header = ({ text, open, changeTableState }) => {
     return (
-
+        
         <div className="thead-tier">
             <h1>{text}</h1>
             {

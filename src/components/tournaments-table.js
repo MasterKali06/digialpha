@@ -10,9 +10,12 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { changeSerieId } from "../redux/actions/changeId";
 import { AnimatePresence, motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 
 
 const Table = ({ gameId, tourList, state }) => {
+
+    const isTabland = useMediaQuery({ query: '(max-width: 1024px)' })
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -22,7 +25,7 @@ const Table = ({ gameId, tourList, state }) => {
     }
 
     const tableVariants = {
-        "in": { opacity: 0, y: "-40px" },
+        "in": { opacity: 0, y: "-40px", transition: {duration: 1, type: "linear"} },
         "out": { opacity: 1, y: "0", transition: { duration: 1, type: "linear" } }
     }
     
@@ -30,7 +33,7 @@ const Table = ({ gameId, tourList, state }) => {
     return (
         <>
             <AnimatePresence exitBeforeEnter>
-                { state && (<motion.table initial="in" exit="in" animate="out" variants={tableVariants} className="tour-table">
+                { !isTabland && state && (<motion.table initial="in" exit="in" animate="out" variants={tableVariants} className="tour-table">
                     <thead>
                         <tr>
                             <th className="th-1" style={{ color: gameColorList[gameId] }}>Serie</th>
@@ -86,59 +89,60 @@ const Table = ({ gameId, tourList, state }) => {
             </AnimatePresence>
 
             {/* tour card */}
+            
+                {/* <motion.div initial="in" exit="in" animate="out" variants={tableVariants} > */}
+                {
+                    isTabland && state &&
+                    tourList.map((item, index) => {
 
-            {
-                state &&
-                tourList.map((item, index) => {
+                        let winnerId = ""
+                        if (item.winnerId) {
+                            winnerId = item.winner_id.name
+                        }
 
-                    let winnerId = ""
-                    if (item.winnerId) {
-                        winnerId = item.winner_id.name
-                    }
-
-                    const start = formatDate(item.begin_at)
-                    const end = formatDate(item.end_at)
+                        const start = formatDate(item.begin_at)
+                        const end = formatDate(item.end_at)
 
 
-                    return (
-                        <div className={index % 2 ? "tour-card t-odd" : "tour-card t-even"}
-                            style={{ "--bgColor": gameColorList[gameId] }}
-                        >
-                            <div className="image">
-                                <img src={item.image ? formatImage(item.image) : ""} alt=" " width="96px" height="96px" style={{ marginRight: "15px" }} />
-                            </div>
-
-                            <div className="contentBx">
-
-                                <div className="name">{item.name}</div>
-
-                                <div className="winner">
-                                    <BsTrophy className="tour-icons" />
-                                    <h3>{winnerId ? winnerId : "TBD"}</h3>
+                        return (
+                            <div className={index % 2 ? "tour-card t-odd" : "tour-card t-even"}
+                                style={{ "--bgColor": gameColorList[gameId] }} onClick={() => onSerieClicked(item.id)}
+                            >
+                                <div className="image">
+                                    <img src={item.image ? formatImage(item.image) : ""} alt=" " width="96px" height="96px" style={{ marginRight: "15px" }} />
                                 </div>
 
-                                {
-                                    item.prizepool !== "None" &&
-                                    <div className="prize">
-                                        <FaRegMoneyBillAlt className="tour-icons" />
-                                        <h3>{item.prizepool}</h3>
+                                <div className="contentBx">
+
+                                    <div className="name">{item.name}</div>
+
+                                    <div className="winner">
+                                        <BsTrophy className="tour-icons" />
+                                        <h3>{winnerId ? winnerId : "TBD"}</h3>
                                     </div>
 
-                                }
+                                    {
+                                        item.prizepool !== "None" &&
+                                        <div className="prize">
+                                            <FaRegMoneyBillAlt className="tour-icons" />
+                                            <h3>{item.prizepool}</h3>
+                                        </div>
 
-                                <div className="date">
-                                    <MdOutlineDateRange className="tour-icons" />
-                                    <h3>{start} -- {end}</h3>
-                                </div>
+                                    }
 
-                                <div className="more">
-                                    <h3><a href={item.url}>visit site</a></h3>
+                                    <div className="date">
+                                        <MdOutlineDateRange className="tour-icons" />
+                                        <h3>{start} -- {end}</h3>
+                                    </div>
+
+                                    <div className="more">
+                                        <h3><a href={item.url}>visit site</a></h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )
-                })}
-
+                        )
+                    })}
+                {/* </motion.div> */}
         </>
     )
 }

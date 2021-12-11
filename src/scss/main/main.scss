@@ -34,54 +34,57 @@
 }
 
 
-@mixin menuTable{
+.menu-body {
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: var(--second-dark);
+}
+
+.menu-wrapper{
   width: 80%;
-  height: fit-content;
+  height: 80%;
+  padding: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu {
+  width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(4, 24%);
   grid-template-rows: repeat(2, 250px);
-  row-gap: 1%;
-  column-gap: 1%;
+  row-gap: 20px;
+  column-gap: 20px;
 
   @include responsive(tab-land){
-      width: 75%;
+      width: 70%;
       grid-template-columns: repeat(2, 50%);
-      grid-template-rows: repeat(4, 50%);
+      grid-template-rows: repeat(4, 250px);
   }
 
   @include responsive(tab-port){
       width: 65%;
       grid-template-columns: 100%;
-      grid-template-rows: repeat(8, 50%);
+      grid-template-rows: repeat(8, 250px);
   }
 }
-
-
-.menu-body {
-  width: 100%;
-  height: 100vh;
-  overflow-x: hidden;
-  background-color: var(--second-dark);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  @include responsive(tab-land){
-    overflow: scroll;     
-  }
-}
-
 
 .main-header{
   width: 100%;
   height: fit-content;
-  padding-top: 30px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 10;
-  justify-content: space-around;
 }
 
 .main-header h3{
@@ -103,12 +106,6 @@
   width: 100%;
   height: 100%;
   text-align: center;
-}
-
-
-.menu {
-  @include menuTable();
-  padding: 60px;
 }
 
 

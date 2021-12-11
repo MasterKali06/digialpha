@@ -115,11 +115,6 @@ const Serie = () => {
             <div className="serie-body">
                 <SerieMenu tournaments={tours} activeTabChanged={activeTabChanged} />
 
-                <div className="mirror-test">
-                    <MirrorBar percent={50} name="og koosh" />
-                    <MirrorBar percent={50} name="team liquid" />
-                </div>
-
                 {/* TODO: we need to add more options like play-in etc */}
                 {
                     activeTab === 0 &&

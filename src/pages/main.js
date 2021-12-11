@@ -92,7 +92,7 @@ const Main = () => {
   return (
     <div className="menu-body" >
 
-      <Particles options={config} className="particles-esc" />
+      {/* <Particles options={config} className="particles" /> */}
 
       <div className="main-header">
         <motion.h3 initial="in" animate="out" variants={h3Variants}>
@@ -104,36 +104,39 @@ const Main = () => {
         </motion.h5>
       </div>
 
-      <motion.div initial="in" animate="out" variants={mainVariants} className="menu">
-        {menuItems.map((item, index) => (
-          <motion.div
-            key={item.id}
-            className={item.name}
-            initial="out"
-            animate="in"
-            variants={getVariant(index)}
-            onClick={() => {
-              dispatch(changeGameId(index))
-              menuItemClicked()
-            }}
-          >
-            <HoverVideoPlayer
-              videoSrc={item.vid}
-              sizingMode="container"
-              style={{
-                width: "100%",
-                height: "80%",
-                disablePictureInPicture: "true"
-              }}
-              preload="auto"
-              pausedOverlay={
-                <img className="pause-overlay" src={item.img} alt={item.name} />
-              }
-            />
+      <div className="menu-wrapper">
 
-          </motion.div>
-        ))}
-      </motion.div>
+        <motion.div initial="in" animate="out" variants={mainVariants} className="menu">
+          {menuItems.map((item, index) => (
+            <motion.div
+              key={item.id}
+              className={item.name}
+              initial="out"
+              animate="in"
+              variants={getVariant(index)}
+              onClick={() => {
+                dispatch(changeGameId(index))
+                menuItemClicked()
+              }}
+            >
+              <HoverVideoPlayer
+                videoSrc={item.vid}
+                sizingMode="container"
+                style={{
+                  width: "100%",
+                  height: "80%",
+                  disablePictureInPicture: "true"
+                }}
+                preload="auto"
+                pausedOverlay={
+                  <img className="pause-overlay" src={item.img} alt={item.name} />
+                }
+              />
+
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </div >
   );
 }

@@ -47,27 +47,7 @@
     display: table;
     table-layout: fixed;
     padding: 0 0 1em 0;
-    // animation: fade-out 1s ease-in-out;
-
-    @include responsive(tab-land){
-        display: none;
-    }
 }
-
-
-.t-hidden{
-    display: none;
-}
-
-
-// @keyframes fade-out {
-//     0%{
-//         opacity: 0;
-//     }
-//     100% {
-//         opacity: 1;
-//     }
-// }
 
 
 .tour-table td{

@@ -79,9 +79,10 @@
 }
 
 .table-container{
-    position: relative;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    margin: 0 auto;
     width: 80%;
     margin-top: 100px !important;    
     height: fit-content;
