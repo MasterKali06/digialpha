@@ -15,8 +15,6 @@ import SerieMenuButton from "../../components/serie-menu-button";
 import { motion } from "framer-motion";
 import MirrorBar from "../../components/mirror-bar"
 
-import SvgBg from "../../assets/bg.svg"
-
 
 // images
 import Particles from "react-tsparticles";
