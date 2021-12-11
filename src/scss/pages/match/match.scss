@@ -281,25 +281,4 @@
     margin-bottom: 20px;
 }
 
-.bg-co {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
-}
-
-.bg-co svg {
-    position: relative;
-    display: block;
-    width: calc(119% + 1.3px);
-    height: 100%;
-}
-
-.bg-co .shape-fill {
-    fill: #1C2026;
-}
 

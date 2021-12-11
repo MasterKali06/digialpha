@@ -103,7 +103,7 @@ const Match = () => {
                 headData.then(data => {
                     setHeadToHead(data)
                     console.log(data)
-                    
+
 
                 }).catch(err => {
                     if (axios.isCancel(err)) {
@@ -170,51 +170,52 @@ const Match = () => {
     }
 
     const VideoContent = () => {
-        
+
         console.log("vidToPlay", vidToPlay)
 
         return (
-        <div className="video-content-box">
-            {
+            <div className="video-content-box">
+                {
 
-                mode === "past" ?
-                    vidToPlay ?
-                        <iframe
-                            className="live-iframe"
-                            src={vidToPlay.video}
-                            allowfullscreen="true"
-                            scrolling="no"
-                            height="100%"
-                            width="100%"
-                            title={vidToPlay.idx}>
-                        </iframe>
+                    mode === "past" ?
+                        vidToPlay ?
+                            <iframe
+                                className="live-iframe"
+                                src={vidToPlay.video}
+                                allowfullscreen="true"
+                                scrolling="no"
+                                height="100%"
+                                width="100%"
+                                title={vidToPlay.idx}>
+                            </iframe>
+                            :
+                            // archive not available
+                            <div className="no-archive">
+                                {/* <img src={CSGO} alt=" " className="no-archive-img" /> */}
+                                <h3>Sorry! No Archive Availabe...</h3>
+                            </div>
+
                         :
-                        // archive not available
-                        <div className="no-archive">
-                            {/* <img src={CSGO} alt=" " className="no-archive-img" /> */}
-                            <h3>Sorry! No Archive Availabe...</h3>
-                        </div>
+                        match.streams_list.length > 0 ?
+                            <iframe
+                                className="live-iframe"
+                                src={`${match.streams_list[0].url}&localhost`}
+                                allowfullscreen="true"
+                                scrolling="no"
+                                height="100%"
+                                width="100%"
+                                title={match.id}>
+                            </iframe>
+                            :
+                            // no live stream
+                            <div className="no-archive">
+                                {/* <img src={CSGO} alt=" " className="no-archive-img" /> */}
+                            </div>
 
-                    :
-                    match.streams_list.length > 0 ?
-                        <iframe
-                            className="live-iframe"
-                            src={`${match.streams_list[0].url}&localhost`}
-                            allowfullscreen="true"
-                            scrolling="no"
-                            height="100%"
-                            width="100%"
-                            title={match.id}>
-                        </iframe>
-                        :
-                        // no live stream
-                        <div className="no-archive">
-                            {/* <img src={CSGO} alt=" " className="no-archive-img" /> */}
-                        </div>
-
-            }
-        </div>
-    )}
+                }
+            </div>
+        )
+    }
 
     const GameButtons = () => (
         <>
@@ -238,7 +239,7 @@ const Match = () => {
         </div>
     )
 
-    const OpponentDetail = ({num, team}) => (
+    const OpponentDetail = ({ num, team }) => (
         <div className="opponent-details">
             <OpponentCard team={{ num: num, detail: team }} match={match} />
         </div>
@@ -246,31 +247,25 @@ const Match = () => {
 
     // TODO: change div width to 100% when its tab-land
     const HeadToHeadComp = () => {
-        if (!headToHead){
+        if (!headToHead) {
             return <></>
         }
 
         const pc = getHeadToHeadWinRate(headToHead, teamOne)
 
         return (
-            <div style={{width: "50%"}}>
+            <div style={{ width: "50%" }}>
                 <div className="headtohead-container">
                     <div className="hth-bar">
                         <MirrorBar percent={pc.teamOnePercent} name={teamOne && teamOne.name} />
                         <MirrorBar percent={pc.teamTwoPercent} name={teamTwo && teamTwo.name} />
                     </div>
-                    <HeadToHead data={headToHead} teamOne={teamOne && teamOne.id} teamTwo={teamTwo && teamTwo.id } />
+                    <HeadToHead data={headToHead} teamOne={teamOne && teamOne.id} teamTwo={teamTwo && teamTwo.id} />
                 </div>
             </div>
         )
     }
 
-
-    const WaveBg = () => (
-        <div className="bg-co">
-                
-        </div>
-    )
 
 
     console.log(match)
@@ -280,80 +275,79 @@ const Match = () => {
         <Layout>
             {
                 match ?
-                <>
-                    <Particles className="particles__container" params={config} />
-                    <WaveBg />
+                    <>
+                        <Particles className="particles__container" params={config} />
 
-                    <motion.div initial="out" exit="out" animate="in" variants={PAGE_VARIANTS} transition={PAGE_TRANSITION} className="match-container">
-                        
-                        <MatchTour />
+                        <motion.div initial="out" exit="out" animate="in" variants={PAGE_VARIANTS} transition={PAGE_TRANSITION} className="match-container">
 
-                        <div className="video-container">
-                            <OpponentDetail num={0} team={teamOne} />
+                            <MatchTour />
 
-                            <div className="video-content">
-                                <GameButtons />
-                                <VideoContent />
-                            </div>
-
-                            <OpponentDetail num={1} team={teamTwo} />
-                        </div>
-
-                        {/* video container responsive */}
-                        <div className="res-video-container">
-                            <GameButtons />
-                            <VideoContent />
-
-                            <div className="res-opp">
+                            <div className="video-container">
                                 <OpponentDetail num={0} team={teamOne} />
+
+                                <div className="video-content">
+                                    <GameButtons />
+                                    <VideoContent />
+                                </div>
+
                                 <OpponentDetail num={1} team={teamTwo} />
                             </div>
-                        </div>
 
+                            {/* video container responsive */}
+                            <div className="res-video-container">
+                                <GameButtons />
+                                <VideoContent />
 
-                        {/* head to head title */}
-                        <div className="headtohead-divider">
-                            <div className="shadow"></div>
-                        </div>
-
-                        <div className="detail-container">
-                            <div style={{width: "25%"}}>
-                               <MasterPieChart stat={match.stats && match.stats.teamOneStat} />
+                                <div className="res-opp">
+                                    <OpponentDetail num={0} team={teamOne} />
+                                    <OpponentDetail num={1} team={teamTwo} />
+                                </div>
                             </div>
-                            
-                            <HeadToHeadComp />
-                            
-                            <div style={{width: "25%"}}>
-                                <MasterPieChart stat={match.stats && match.stats.teamTwoStat} />
+
+
+                            {/* head to head title */}
+                            <div className="headtohead-divider">
+                                <div className="shadow"></div>
                             </div>
-                        </div>
 
-
-                        <MatchTabContainer active={tabContainer} tabClicked={(idx) => setTabContainer(idx)}/>
-                        <div className="tab-container">
-                            {tabContainer === 0 && 
-                                <div className="intab">
+                            <div className="detail-container">
+                                <div style={{ width: "25%" }}>
                                     <MasterPieChart stat={match.stats && match.stats.teamOneStat} />
                                 </div>
-                            }
 
-                            {
-                                tabContainer === 1 &&
-                                <div className="intab">
-                                    <HeadToHeadComp />
-                                </div>
-                            }
-                            
-                            {tabContainer === 2 && 
-                                <div className="intab">
+                                <HeadToHeadComp />
+
+                                <div style={{ width: "25%" }}>
                                     <MasterPieChart stat={match.stats && match.stats.teamTwoStat} />
                                 </div>
-                            }
+                            </div>
 
-                        </div>
 
-                    </motion.div>
-                </>
+                            <MatchTabContainer active={tabContainer} tabClicked={(idx) => setTabContainer(idx)} />
+                            <div className="tab-container">
+                                {tabContainer === 0 &&
+                                    <div className="intab">
+                                        <MasterPieChart stat={match.stats && match.stats.teamOneStat} />
+                                    </div>
+                                }
+
+                                {
+                                    tabContainer === 1 &&
+                                    <div className="intab">
+                                        <HeadToHeadComp />
+                                    </div>
+                                }
+
+                                {tabContainer === 2 &&
+                                    <div className="intab">
+                                        <MasterPieChart stat={match.stats && match.stats.teamTwoStat} />
+                                    </div>
+                                }
+
+                            </div>
+
+                        </motion.div>
+                    </>
                     // loading
                     :
                     <div className="loading-container">
@@ -367,7 +361,7 @@ const Match = () => {
 }
 
 
-const MatchTabContainer = ({active, tabClicked}) => {
+const MatchTabContainer = ({ active, tabClicked }) => {
 
     return (
         <div className="match-tab-menu">
